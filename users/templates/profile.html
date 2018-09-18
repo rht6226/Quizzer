@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Quizzer|Edit Profile
+{% endblock %}
+
+{% block content %}
+<div class="containern text-center p-3">
+    <h1 class='text-center'>Profile</h1>
+    <hr>
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit">Save changes</button>
+    </form>
+</div>
+
+{% endblock %}

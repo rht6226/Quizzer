@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Product hunt clone: For development and practice purposes only">
+    <meta name="author" content="Rohit Anand">
+    <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'open-iconic-master/font/css/open-iconic-bootstrap.css'%}">
+  <body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                Quizzer
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav ml-auto">
+                
+                {% if user.is_authenticated %}
+                <!-- Executed when user is logged in. On click The Js code submits the form -->
+                <li class="nav-item dropdown"> 
+                <a class="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                    {{user.username}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item nav-link nav-item" href="javascript:{document.getElementById('logout').submit()}">Log Out</a>
+                </div>
+                <form id='logout' method="POST" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <input type="hidden">
+                </form>
+                </li>
+                {% else %}
+                <!--If user is not logged in -->
+                <a class="nav-item nav-link" href="{% url 'login' %}">Log In</a>
+                <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+              </div>
+            </div>
+        </div>
+          </nav>
+    </header>
+
+    {% block content %}
+    
+    {% endblock %}
+
+    <footer class="text-muted">
+        <div class="container text-center">
+          <p>&copy; Binary Compatible {% now "Y" %}</p>
+          <br>
+        </div>
+      </footer>
+  
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>

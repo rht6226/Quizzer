@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Quizzer|Edit Profile
+{% endblock %}
+
+{%if user.is_authenticated %}
+{% block content %}
+<div class="containern text-center p-3">
+    <h1 class='text-center'>{{user.username}} {{user.last_name}}</h1>
+    
+</div>
+
+{% endblock %}
+{% endif %}
