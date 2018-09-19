@@ -4,6 +4,8 @@ from django.contrib import auth, messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ProfileForm
+from .models import Profile
+import os
 
 
 def signup(request):
@@ -32,7 +34,7 @@ def signup(request):
 def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
