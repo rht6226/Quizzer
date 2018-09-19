@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Quizzer|Edit Profile
+Quizzer|Profile
 {% endblock %}
 
 {%if user.is_authenticated %}
 {% block content %}
-<div class="containern text-center p-3">
-    <h1 class='text-center'>{{user.username}} {{user.last_name}}</h1>
-    
+<div class="container p-3">
+    <h1>Quizzer Profile</h1>
+    <hr>
+    <h2 class='text-center'>{{user.first_name}} {{user.last_name}}</h1>
+    <p class="text-center"><img src = '{{user.profile.profilepic.url}}' width="600"></p>
+    <p><b>User Name</b> - {{user.username}}</p>
+    <p><b>Email</b> - {{user.email}}</p>
+    <p><b>Institute</b> - {{user.profile.college}}</p>
+    <p><b>Bio</b> - {{user.profile.bio}}</p>
+
 </div>
 
 {% endblock %}
