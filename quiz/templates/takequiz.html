@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quizzer|{{quiz_object.name}}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class='col-6'>{{quiz_object.name}}</h1>
+    {% if user.is_authenticated %}
+    <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
+    <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
+    <hr>
+    <p>{{quiz_data}}</p>
+    {% endif %}
+</div>      
+{% endblock %}

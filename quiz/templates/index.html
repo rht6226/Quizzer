@@ -7,5 +7,8 @@ Quizzer
 {% block content %}
 <div class="container">
     <h1>Quizzer</h1>
+    {% if user.is_authenticated %}
+    <p><a href="{%url 'create_quiz'%}">Create Quiz</a></p>
+    {% endif %}
 </div>      
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Quizzer|Create Quiz
+{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+    <h2 class='text-center'>Create Quiz</h1>
+    <hr>
+    <br>
+    <form method="post" enctype="multipart/form-data" action="{% url 'create_quiz'%}">
+        {% csrf_token %}
+        {{ quiz_form.as_p }}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+
+{% endblock %}
