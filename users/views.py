@@ -61,7 +61,7 @@ def login(request):
         user = auth.authenticate(username = request.POST['username'], password= request.POST['password'])
         if user is not None:
             auth.login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
         else:
             return render(request, 'login.html', {'error': 'Invalid Credentials! Please enter correct username and password.'})
     else:
