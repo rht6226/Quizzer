@@ -9,7 +9,7 @@ Quizzer|Edit Profile
     <h1 class='text-center'>Edit Profile</h1>
     <hr>
     <br>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}

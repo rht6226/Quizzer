@@ -7,6 +7,7 @@
     <meta name="description" content="Product hunt clone: For development and practice purposes only">
     <meta name="author" content="Rohit Anand">
     <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <title>
         {% block title %}
@@ -22,6 +23,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
+              <img src="{% static 'letter-q.png' %}" class="main-icon">
                 Quizzer
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +34,7 @@
                 
                 {% if user.is_authenticated %}
                 <!-- Executed when user is logged in. On click The Js code submits the form -->
-                <a href="{% url 'profile' %}"><img src='{{user.profile.profilepic.url}}' width=40 height=40></a>
+                <a href="{% url 'profile' %}"><img class = 'nav-img' src='{{user.profile.image_url}}' width=40 height=40></a>
                 <li class="nav-item dropdown"> 
                 <a class="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     {{user.first_name}} {{user.last_name}}

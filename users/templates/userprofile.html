@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block title %}
 Quizzer|Profile
 {% endblock %}
@@ -10,7 +10,8 @@ Quizzer|Profile
     <h1>Quizzer Profile</h1>
     <hr>
     <h2 class='text-center'>{{user.first_name}} {{user.last_name}}</h1>
-    <p class="text-center"><img src = '{{user.profile.profilepic.url}}' width="600"></p>
+    <p class="text-center"><img class = 'img-thumbnail img-rounded img-responsive' src = '{{user.profile.profilepic.url}}' width="600"></p>
+    <p><b>Date of Birth </b> - {{user.profile.DOB}}</p>
     <p><b>User Name</b> - {{user.username}}</p>
     <p><b>Email</b> - {{user.email}}</p>
     <p><b>Institute</b> - {{user.profile.college}}</p>
