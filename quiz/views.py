@@ -12,9 +12,23 @@ def home(request):
         return redirect('accounts/dashboard')
     else:
         return render(request, 'index.html')
+
+@login_required(login_url = '/accounts/login')
 def start(request):
     return render(request, 'start.html')
 
+def start_quiz(request):
+    if request.method == 'POST':
+        user = auth.authenticate(username = request.POST['quizid'], password= request.POST['tpass'])
+        if user is not None:
+            auth.login(request, user)
+            return redirect('dashboard')
+        else:
+            return render(request, 'start.html', {'error': 'Invalid Credentials!'})
+    else:
+        return render(request, 'login.html')
+
+@login_required(login_url = '/accounts/login')
 def clean(f):
     data = list()
     with open(f, 'r') as file:
@@ -36,6 +50,8 @@ def create(request):
             item.name = request.POST['name']
             item.csv_file = request.FILES['csv_file']
             item.about = request.POST['about']
+            item.Quiz_id=request.POST['Quiz_id']
+            item.Test_Password=request.POST['Test_Password']
             item.quizmaster = request.user
             item.save()
             url = item.csv_file.url
@@ -68,6 +84,9 @@ def create(request):
 
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quiz_id):
-    item = get_object_or_404(Quiz, pk=quiz_id)
-    data = item.questions
-    return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': data})
+    item = get_object_or_404(Quiz, Quiz_id=quiz_id)
+    data = Question.objects.filter(quiz=item)
+    querys=[]
+    for thing in data:
+        querys.append(thing)
+    return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': querys})

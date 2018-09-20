@@ -48,6 +48,8 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item nav-link nav-item" href="{% url 'profile' %}">Profile</a>
 
+                    <a class="dropdown-item nav-link nav-item" href="{% url 'dashboard' %}">Dashboard</a>
+
                     <a class="dropdown-item nav-link nav-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                     <a class="dropdown-item nav-link nav-item" href="javascript:{document.getElementById('logout').submit()}">Log Out</a>
                 </div>
@@ -67,11 +69,13 @@
           </nav>
     </div>
     </header>
+
    <div class="container">
     {% block content %}
 
     {% endblock %}
-</div>
+   </div>
+
     <footer class="text-muted">
         <div class="container text-center">
           <p>&copy; Binary Compatible {% now "Y" %}</p>

@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
-{% block contents %}
+{% block content %}
 
 
-
+<div class="card" style="width: 38rem; padding:28px; margin:45px auto;">
+    <form class="form-signin"  method="POST" action="{% url 'start_quiz' %}">
+        {% csrf_token %}
+        <div class="text-center">
+            <img src="{% static 'icon.png' %}" class="d-inline-block align-top">
+            <h1 class="h3 mb-3 font-weight-normal">Enter Credentials</h1>
+        </div>
+            <label for="quizid">Quiz-Id :</label>
+            <input type="text" id="quizid" class="form-control -p3" placeholder="Enter Quiz-Id" required autofocus name="quizid"><br>
+            <label for="inputPassword">Password :</label>
+            <input type="password" id="tPass" class="form-control -p3" placeholder="Password" required name="password"><br>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Start Quiz</button>
+        </form>
+    </div>
 
 
 {% endblock %}
