@@ -7,11 +7,12 @@ Quizzer|SignUp
 {% block content %}
 {% load staticfiles %}
 
-{% if error %}
+{% if error2 %}
 <br>
-<p class='text-center'>{{error}}</p>
+<script>{{error2}}</script>
 <br>
 {% endif %}
+
 <div class="container card" style="width: 38rem; padding:28px; margin:45px auto;">
         <form class="form-signin" method="POST" action="{% url 'signup' %}">
             {% csrf_token %}

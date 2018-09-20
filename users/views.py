@@ -14,11 +14,13 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             #Entered passwords are identical
             try:
-                #check if user already exists in database if yes raise error
+                # #check if user already exists in database if yes raise error
+
                 user = User.objects.get(username = request.POST['username'])
-                return render(request, 'signup.html', {'error': 'Username is already taken!'})
-                user = User.objects.get(email = request.POST['email'])
-                return render(request, 'signup.html', {'error': 'Email is already taken!'})           
+                return render(request, 'signup.html', {'error2': 'Username is already taken!'})
+                #
+                # usermail = User.objects.get(email = request.POST['email'])
+                # return render(request, 'signup.html', {'error1': 'Email is already taken!'})
             except User.DoesNotExist:
                 #username is available
                 user = User.objects.create_user(username =request.POST['username'], password= request.POST['password1'], email= request.POST['email'],)
@@ -39,7 +41,7 @@ def update_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
-            return redirect('profile')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -69,6 +71,7 @@ def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         return redirect('home')
-        
+def dash(request):
+    return render(request,'dashboard.html')
     
     
