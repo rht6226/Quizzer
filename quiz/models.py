@@ -8,7 +8,7 @@ class Quiz(models.Model):
     about = models.TextField(max_length= 2000)
     Test_Password = models.CharField(max_length=50,default=' ')
     quizmaster =   models.ForeignKey(User, on_delete= models.CASCADE)
-    questions = models.TextField(default=' ')
+    instructions = models.TextField(default=' ')
     Quiz_id = models.CharField(max_length=50,default=' ')
 
     def __str__(self):

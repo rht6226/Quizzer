@@ -40,7 +40,6 @@ def start_quiz(request):
         else:
             return render(request, 'start')
 
-@login_required(login_url = '/accounts/login')
 def clean(f):
     data = list()
     with open(f, 'r') as file:
@@ -64,6 +63,7 @@ def create(request):
             item.about = request.POST['about']
             item.Quiz_id=request.POST['Quiz_id']
             item.Test_Password=request.POST['Test_Password']
+            item.instructions = request.POST['instructions']
             item.quizmaster = request.user
             item.save()
             url = item.csv_file.url
