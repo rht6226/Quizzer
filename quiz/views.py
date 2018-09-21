@@ -23,9 +23,11 @@ def start_quiz(request):
     if request.method == 'POST':
         try:
            item=Quiz.objects.get(Quiz_id=request.POST['quizid'])
+
            # item=Quiz(Quiz_id=request.POST['quizid'],Test_password=request.POST['tPass'])
 
            if item.Test_Password==request.POST['password']:
+             request.session['username'] = request.user.get_username()
              return redirect('test/'+str(item.Quiz_id))
            else:
 
@@ -94,8 +96,10 @@ def create(request):
 
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quiz_id):
+  if 'username' in request.session:
     item = get_object_or_404(Quiz, Quiz_id=quiz_id)
     data = Question.objects.filter(quiz=item)
+
     querys=[]
     for thing in data:
         querys.append(thing)
