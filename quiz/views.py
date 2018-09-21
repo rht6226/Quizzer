@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
-from .models import Quiz, Question
+from .models import Quiz, Question, Answers
 import os, csv
 
 # Create your views here.
@@ -61,11 +61,22 @@ def create(request):
         create_quiz_form = QuizForm()
         return render(request, 'createquiz.html', {'quiz_form': create_quiz_form})
 
+def create_answer_table(quiz_object, question_objects, user_object):
+    for question_object in question_objects:
+        ans = Answers()
+        ans.applicant = user_object
+        ans.quiz = quiz_object
+        ans.question = question_object
+        ans.correct_choice = question_object.correct
+        ans.save()
+    return
 
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
+    aspirant = request.user
     item = get_object_or_404(Quiz, quiz_id=quizid)
     data = Question.objects.filter(quiz = item)
+    create_answer_table(item, data, aspirant)
     querys = []
     for thing in data:
         querys.append(thing)

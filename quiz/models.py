@@ -7,7 +7,7 @@ class Quiz(models.Model):
     quiz_password = models.CharField(max_length = 50)
     csv_file = models.FileField(upload_to='quizzes/csv/')
     about = models.TextField(max_length= 2000)
-    quizmaster =   models.ForeignKey(User, on_delete= models.CASCADE)
+    quizmaster = models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
             return self.name
@@ -24,3 +24,12 @@ class Question(models.Model):
     def __str__(self):
         title = self.question[:40]
         return title
+    
+
+class Answers(models.Model):
+    applicant = models.ForeignKey(User, on_delete= models.CASCADE ) 
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    response = models.CharField(max_length=500, default='')
+    correct_choice = models.CharField(max_length=500)
+
