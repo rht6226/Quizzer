@@ -5,13 +5,42 @@ Quizzer|{{quiz_object.name}}
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="container">
     <h1 class='col-6'>{{quiz_object.name}}</h1>
-    {% if user.is_authenticated %}
     <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
     <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
     <hr>
-    <p>{{quiz_data}}</p>
-    {% endif %}
-</div>      
+    <ol>
+    {% for obj in quiz_data%}
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item">{{obj.question}}</li>
+        <form>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="a">
+            <span class='col-11'>{{obj.a}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="b">
+            <span class='col-11'>{{obj.b}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="c">
+            <span class='col-11'>{{obj.c}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="d">
+            <span class='col-11'>{{obj.d}}</span>
+        </li>
+        <li class="list-group-item">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </li>
+        </form>
+    </ul>
+    <br>
+    {% endfor %}
+    </ol>
+</div>  
+{% endif %}
 {% endblock %}

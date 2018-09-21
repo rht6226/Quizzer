@@ -19,6 +19,7 @@ def clean(f):
     for item in list1:
         list2 = item.split(',')
         data.append(list2)
+    print(data)
     return data
 
 @login_required(login_url = '/accounts/login')
@@ -32,6 +33,8 @@ def create(request):
             item.csv_file = request.FILES['csv_file']
             item.about = request.POST['about']
             item.quizmaster = request.user
+            item.quiz_id = request.POST['quiz_id']
+            item.quiz_password = request.POST['quiz_password']
             item.save()
             url = item.csv_file.url
             l = url.split('/')
@@ -50,7 +53,7 @@ def create(request):
                 ques.correct = row[5]
                 ques.save()
             messages.success(request, 'Quiz Successfully created! ')
-            return redirect('/quiz/test/'+ str(item.id))
+            return redirect('/quiz/test/'+ item.quiz_id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -60,10 +63,14 @@ def create(request):
 
 
 @login_required(login_url = '/accounts/login')
-def conduct_quiz(request, quiz_id):
-    item = get_object_or_404(Quiz, pk=quiz_id)
-    data = item.questions
-    return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': data})
+def conduct_quiz(request, quizid):
+    item = get_object_or_404(Quiz, quiz_id=quizid)
+    print(item.name)
+    data = Question.objects.filter(quiz = item)
+    querys = []
+    for thing in data:
+        querys.append(thing)
+    return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': querys})
 
 
 

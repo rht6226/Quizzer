@@ -8,3 +8,9 @@ body{
 .main-icon{
     width: 40px;
 }
+.login-card
+{
+    width: 30 vw;
+    height: 40 vh;
+    padding: 10%;
+}

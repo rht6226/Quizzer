@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+Quizzer|{{quiz_object.name}}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <h1 class='col-6'>{{quiz_object.name}}</h1>
+    <hr>
+    <div class='row'>
+    <div class='col-7'>
+        <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
+        <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster.first_name}} {{quiz_object.quizmaster.last_name}}</p>
+    </div>
+    <div class="col-4">
+    <div class="row justify-content-md-center">
+    <div class="card col-11 p-6">
+    <h2 class="text-center card-title p-3">Log in</h2> 
+    <form action="{% url 'test' %}" method="POST">
+        {% csrf_token %}      
+        <div class="form-group">
+            <input type="text" class="form-control p-2" placeholder="{{user.username}}" value="{{user.username}}" required="required" readonly="readonly" name='username'>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control p-2" placeholder="Test Password" required="required" name='pwd'>
+        </div>
+        {% if error %}
+        <p>{{error}}</p>
+        {% endif %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>        
+    </form>
+    </div>
+    </div>
+    </div>
+    
+</div>  
+{% endif %}
+{% endblock %}
