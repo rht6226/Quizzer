@@ -17,6 +17,7 @@ def home(request):
 def start(request):
     return render(request, 'start.html')
 
+
 def start_quiz(request):
 
     if request.method == 'POST':
@@ -30,10 +31,10 @@ def start_quiz(request):
 
             # return render(request, 'start', {'error': 'Invalid Credentials!'})
             messages.info(request,'Invalid Credentials')
-            return redirect('start')
+            return redirect('dashboard')
         except Quiz.DoesNotExist:
-            messages.info(request,'Quiz doesnot exists!')
-            return redirect('start')
+            messages.info(request,'Quiz does not exists!')
+            return redirect('dashboard')
         else:
             return render(request, 'start')
 
