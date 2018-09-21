@@ -80,9 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Quizzer',
         'USER': 'postgres',
-        'PASSWORD': 'lodulodu',
+        'PASSWORD': '8520',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
