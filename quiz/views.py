@@ -76,7 +76,13 @@ def conduct_quiz(request, quizid):
     aspirant = request.user
     item = get_object_or_404(Quiz, quiz_id=quizid)
     data = Question.objects.filter(quiz = item)
-    create_answer_table(item, data, aspirant)
+    if request.method == 'POST':
+        ques = get_object_or_404(Question, id=request.POST['question_id'])
+        answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
+        answer_object.response = request.POST['response']
+        answer_object.save()
+    else:
+        create_answer_table(item, data, aspirant)
     querys = []
     for thing in data:
         querys.append(thing)
