@@ -13,4 +13,3 @@ class QuizForm(forms.ModelForm):
 
             'Quiz_id': forms.TextInput(attrs={'class': 'form-control col-6'}),
             }
-

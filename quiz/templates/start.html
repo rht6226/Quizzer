@@ -2,7 +2,16 @@
 {% load staticfiles %}
 
 {% block content %}
+<div class="container">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger alert dismissable {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert"><strong>{{ message }}</strong>
+          <button type="button" class="close" data-dismiss="alert">&times;</button></div>
 
+
+    {% endfor %}
+{% endif %}
+</div>
 
 <div class="card" style="width: 38rem; padding:28px; margin:45px auto;">
     <form class="form-signin"  method="POST" action="{% url 'start_quiz' %}">
@@ -14,7 +23,7 @@
             <label for="quizid">Quiz-Id :</label>
             <input type="text" id="quizid" class="form-control -p3" placeholder="Enter Quiz-Id" required autofocus name="quizid"><br>
             <label for="inputPassword">Password :</label>
-            <input type="password" id="tPass" class="form-control -p3" placeholder="Password" required name="password"><br>
+            <input type="password" id="password" class="form-control -p3" placeholder="Password" required name="password"><br>
             <br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Start Quiz</button>
         </form>

@@ -18,15 +18,24 @@ def start(request):
     return render(request, 'start.html')
 
 def start_quiz(request):
+
     if request.method == 'POST':
-        user = auth.authenticate(username = request.POST['quizid'], password= request.POST['tpass'])
-        if user is not None:
-            auth.login(request, user)
-            return redirect('dashboard')
+        try:
+           item=Quiz.objects.get(Quiz_id=request.POST['quizid'])
+           # item=Quiz(Quiz_id=request.POST['quizid'],Test_password=request.POST['tPass'])
+
+           if item.Test_Password==request.POST['password']:
+             return redirect('test/'+str(item.Quiz_id))
+           else:
+
+            # return render(request, 'start', {'error': 'Invalid Credentials!'})
+            messages.info(request,'Invalid Credentials')
+            return redirect('start')
+        except Quiz.DoesNotExist:
+            messages.info(request,'Quiz doesnot exists!')
+            return redirect('start')
         else:
-            return render(request, 'start.html', {'error': 'Invalid Credentials!'})
-    else:
-        return render(request, 'login.html')
+            return render(request, 'start')
 
 @login_required(login_url = '/accounts/login')
 def clean(f):
