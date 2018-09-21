@@ -16,7 +16,8 @@ Quizzer|SignUp
         <form class="form-signin" method="POST" action="{% url 'signup' %}">
             {% csrf_token %}
             <div class="text-center">
-                <img src="{% static 'icon.png' %}" class="d-inline-block align-top">
+                <img src="{% static 'letter-q.png' %}" class="d-inline-block align-top" width="80">
+                <br>
                 <h1 class="h3 mb-3 font-weight-normal">Sign Up!</h1>
             </div> 
                 <label for="username">Username :</label>

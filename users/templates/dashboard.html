@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <br/>
+    <br>
+    <br>
+    <div class="container">
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissable">
+    <strong>
+        {{ message }}
+</strong>
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="row">
+
+        <div class="col-md">
+            <button  class="btn btn-primary btn-lg btn-block btn-huge" data-toggle="modal" data-target="#myModal">Start A Quiz</a>
+        </div>
+
+        <div class="col-md">
+            <a href="{% url 'create_quiz' %}" class="btn btn-primary btn-lg btn-block btn-huge">Create a Quiz</a>
+        </div>
+</div>
+    </div>
+<div class="modal modal fade" id="myModal">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Start Quizzing!</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <form  method="POST" action="">
+            {% csrf_token %}
+        <div class="modal-body">
+            <label for="quiz_id">Quiz Id :</label>
+            <input type="text" id="username" class="form-control -p3" placeholder="Enter Quiz Id to begin" required autofocus name="quiz_id"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" >Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+{% endblock %}

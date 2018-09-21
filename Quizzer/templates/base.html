@@ -33,7 +33,7 @@
                 
                 {% if user.is_authenticated %}
                 <!-- Executed when user is logged in. On click The Js code submits the form -->
-                <a href="{% url 'profile' %}"><img class = 'nav-img' src='{{user.profile.image_url}}' width=40 height=40></a>
+                <a href="{% url 'dashboard' %}"><img class = 'nav-img' src='{{user.profile.image_url}}' width=40 height=40></a>
                 <li class="nav-item dropdown"> 
                 <a class="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     {{user.first_name}} {{user.last_name}}

@@ -65,14 +65,16 @@ def create(request):
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
     item = get_object_or_404(Quiz, quiz_id=quizid)
-    print(item.name)
     data = Question.objects.filter(quiz = item)
     querys = []
     for thing in data:
         querys.append(thing)
     return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': querys})
 
-
+@login_required(login_url = '/accounts/login')
+def welcome(request, quizid):
+    item = get_object_or_404(Quiz, quiz_id=quizid)
+    return render(request, 'quizfront.html', {'quiz_object': item})
 
 
         
