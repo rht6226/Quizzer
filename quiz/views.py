@@ -58,34 +58,42 @@ def create(request):
         quiz_form = QuizForm(request.POST, request.FILES, request.user)
         if quiz_form.is_valid:
             item = Quiz()
-            item.name = request.POST['name']
-            item.csv_file = request.FILES['csv_file']
-            item.about = request.POST['about']
-            item.Quiz_id=request.POST['Quiz_id']
-            item.Test_Password=request.POST['Test_Password']
-            item.instructions = request.POST['instructions']
-            item.quizmaster = request.user
-            item.save()
-            url = item.csv_file.url
-            l = url.split('/')
-            s = "\\"
-            s = s.join(l)
-            f = os.getcwd() + s
-            data = clean(f)
-            for row in data:
-                ques = Question()
-                ques.quiz = item
-                ques.question = row[0]
-                ques.a = row[1]
-                ques.b = row[2]
-                ques.c = row[3]
-                ques.d = row[4]
-                ques.correct = row[5]
-                ques.save()
-            # messages.success(request, 'Quiz Successfully created! ')
-            # return redirect('/quiz/test/'+ str(item.id))
-            messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start quizzing!')
-            return redirect( 'dashboard')
+            try:
+                qu = Quiz.objects.get(Quiz_id = request.POST['Quiz_id'])
+                create_quiz_form = QuizForm()
+                return render(request, 'create_quiz.html', {'quiz_form': create_quiz_form, 'error': "Quiz id is already taken! "})
+            except Quiz.DoesNotExist:
+                item.name = request.POST['name']
+                item.csv_file = request.FILES['csv_file']
+                item.about = request.POST['about']
+                item.Quiz_id=request.POST['Quiz_id']
+                item.Test_Password=request.POST['Test_Password']
+                item.instructions = request.POST['instructions']
+                item.positive = request.POST['positive']
+                item.negative = request.POST['negative']
+                item.duration = request.POST['duration']
+                item.quizmaster = request.user
+                item.save()
+                url = item.csv_file.url
+                l = url.split('/')
+                s = "\\"
+                s = s.join(l)
+                f = os.getcwd() + s
+                data = clean(f)
+                for row in data:
+                    ques = Question()
+                    ques.quiz = item
+                    ques.question = row[0]
+                    ques.a = row[1]
+                    ques.b = row[2]
+                    ques.c = row[3]
+                    ques.d = row[4]
+                    ques.correct = row[5]
+                    ques.save()
+                # messages.success(request, 'Quiz Successfully created! ')
+                # return redirect('/quiz/test/'+ str(item.id))
+                messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start   quizzing!')
+                return redirect( 'dashboard')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -121,11 +129,11 @@ def score(request, quizid):
             dicty['result'] = '0'
         else:
             if answer.response == answer.correct_choice:
-                dicty['result'] = '+3'
-                marks = marks + 3
+                dicty['result'] = '+' + str(item.positive)
+                marks = marks + item.positive
             else:
-                dicty['result'] = '-1'
-                marks = marks - 1
+                dicty['result'] = '-' + str(item.negative)
+                marks = marks - item.negative
         list_object.append(dicty)
         total_marks = 3* len(list_object)
     return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})

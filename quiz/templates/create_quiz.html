@@ -9,6 +9,9 @@ Quizzer|Create Quiz
     <h2 class='text-center'>Create Quiz</h2>
     <hr>
     <br>
+    {%if error %}
+    <p class='text-center'>{{error}}</p>
+    {% endif %}
     <form method="post" enctype="multipart/form-data" action="{% url 'create_quiz'%}">
         {% csrf_token %}
         {{ quiz_form.as_p }}

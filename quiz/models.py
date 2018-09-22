@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import timedelta
 
 class Quiz(models.Model):
     name = models.CharField(max_length = 50)
@@ -10,6 +10,9 @@ class Quiz(models.Model):
     quizmaster =   models.ForeignKey(User, on_delete= models.CASCADE)
     instructions = models.TextField(default=' ')
     Quiz_id = models.CharField(max_length=50,default='')
+    positive = models.IntegerField(default=3)
+    negative = models.IntegerField(default=1)
+    duration = models.DurationField(default= timedelta())
 
     def __str__(self):
             return self.name
