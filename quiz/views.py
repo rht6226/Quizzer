@@ -104,6 +104,34 @@ def create_answer_table(quiz_object, question_objects, user_object):
     return
 
 @login_required(login_url = '/accounts/login')
+def score(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, Quiz_id=quizid)
+    answers = Answers.objects.filter(quiz = item, applicant=aspirant)
+    list_object = []
+    marks = 0
+    for answer in answers:
+        dicty = dict()
+        ques = answer.question
+        dicty['question'] = ques.question
+        dicty['submission'] = answer.response
+        dicty['correct'] = answer.correct_choice
+        if answer.response == '':
+            marks = marks
+            dicty['result'] = '0'
+        else:
+            if answer.response == answer.correct_choice:
+                dicty['result'] = '+3'
+                marks = marks + 3
+            else:
+                dicty['result'] = '-1'
+                marks = marks - 1
+        list_object.append(dicty)
+        total_marks = 3* len(list_object)
+    return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
+
+
+@login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
     aspirant = request.user
     item = get_object_or_404(Quiz, Quiz_id=quizid)
