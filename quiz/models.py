@@ -6,10 +6,10 @@ class Quiz(models.Model):
     name = models.CharField(max_length = 50)
     csv_file = models.FileField(upload_to='quizzes/csv/')
     about = models.TextField(max_length= 2000)
-    Test_Password = models.CharField(max_length=50,default=' ')
+    Test_Password = models.CharField(max_length=50,default='')
     quizmaster =   models.ForeignKey(User, on_delete= models.CASCADE)
     instructions = models.TextField(default=' ')
-    Quiz_id = models.CharField(max_length=50,default=' ')
+    Quiz_id = models.CharField(max_length=50,default='')
 
     def __str__(self):
             return self.name
@@ -26,3 +26,10 @@ class Question(models.Model):
     def __str__(self):
         title = self.question[:40]
         return title
+
+class Answers(models.Model):
+    applicant = models.ForeignKey(User, on_delete= models.CASCADE ) 
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    response = models.CharField(max_length=500, default='')
+    correct_choice = models.CharField(max_length=500)

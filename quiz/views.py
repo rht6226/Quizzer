@@ -1,11 +1,11 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
-from .models import Quiz, Question
+from .models import Quiz, Question, Answers
 import os, csv
-
+from random import shuffle
 
 def home(request):
     if request.user.is_authenticated:
@@ -93,14 +93,36 @@ def create(request):
         create_quiz_form = QuizForm()
         return render(request, 'create_quiz.html', {'quiz_form': create_quiz_form})
 
+def create_answer_table(quiz_object, question_objects, user_object):
+    for question_object in question_objects:
+        ans = Answers()
+        ans.applicant = user_object
+        ans.quiz = quiz_object
+        ans.question = question_object
+        ans.correct_choice = question_object.correct
+        ans.save()
+    return
 
 @login_required(login_url = '/accounts/login')
-def conduct_quiz(request, quiz_id):
-  if 'username' in request.session:
-    item = get_object_or_404(Quiz, Quiz_id=quiz_id)
-    data = Question.objects.filter(quiz=item)
-
-    querys=[]
+def conduct_quiz(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, Quiz_id=quizid)
+    data = Question.objects.filter(quiz = item)
+    if request.method == 'POST':
+        ques = get_object_or_404(Question, id=request.POST['question_id'])
+        answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
+        answer_object.response = request.POST.get('response')
+        answer_object.save()
+    
+    querys = []
     for thing in data:
         querys.append(thing)
+
+    else:
+        try:
+            answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
+        except:
+            create_answer_table(item, data, aspirant)
+    shuffle(querys)
+        
     return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': querys})

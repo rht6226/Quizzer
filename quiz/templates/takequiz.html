@@ -16,21 +16,23 @@ Quizzer|{{quiz_object.name}}
     <br>
     <ul class="list-group">
         <li class="list-group-item">{{obj.question}}</li>
-        <form>
+        <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
+            {% csrf_token %}
+        <input type="hidden" value="{{obj.id}}" name="question_id">
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="a">
+            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
             <span class='col-11'>{{obj.a}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="b">
+            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="response">
             <span class='col-11'>{{obj.b}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="c">
+            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="response">
             <span class='col-11'>{{obj.c}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="d">
+            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="response">
             <span class='col-11'>{{obj.d}}</span>
         </li>
         <li class="list-group-item">
