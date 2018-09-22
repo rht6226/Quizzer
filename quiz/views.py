@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
 from .models import Quiz, Question, Answers
 import os, csv
+from random import shuffle
 
 # Create your views here.
 def home(request):
@@ -84,14 +85,17 @@ def score(request, quizid):
         dicty['question'] = ques.question
         dicty['submission'] = answer.response
         dicty['correct'] = answer.correct_choice
-        if answer.response == answer.correct_choice:
-            dicty['result'] = '+3'
-            marks = marks + 3
-            list_object.append(dicty)
+        if answer.response == '':
+            marks = marks
+            dicty['result'] = '0'
         else:
-            dicty['result'] = '-1'
-            marks = marks - 1
-            list_object.append(dicty)
+            if answer.response == answer.correct_choice:
+                dicty['result'] = '+3'
+                marks = marks + 3
+            else:
+                dicty['result'] = '-1'
+                marks = marks - 1
+        list_object.append(dicty)
         total_marks = 3* len(list_object)
     return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
 
@@ -105,14 +109,18 @@ def conduct_quiz(request, quizid):
         answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
         answer_object.response = request.POST.get('response')
         answer_object.save()
+    
+    querys = []
+    for thing in data:
+        querys.append(thing)
+
     else:
         try:
             answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
         except:
             create_answer_table(item, data, aspirant)
-    querys = []
-    for thing in data:
-        querys.append(thing)
+    shuffle(querys)
+        
     return render(request, 'takequiz.html', {'quiz_object': item, 'quiz_data': querys})
 
 @login_required(login_url = '/accounts/login')
