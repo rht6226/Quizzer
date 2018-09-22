@@ -6,7 +6,7 @@ Quizzer|{{quiz_object.name}}
 
 {% block content %}
 {% if user.is_authenticated %}
-<div class="container">
+<div class="container p-2">
     <h1 class='col-6'>{{quiz_object.name}}</h1>
     <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
     <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
@@ -16,7 +16,8 @@ Quizzer|{{quiz_object.name}}
     <br>
     <ul class="list-group">
         <li class="list-group-item">{{obj.question}}</li>
-        <form method="POST" action="{% url 'test:quiz_object.quiz_id' %}">
+        <form method="POST" action="{% url 'test' quizid=quiz_object.quiz_id %}">
+            {% csrf_token %}
         <input type="hidden" value="{{obj.id}}" name="question_id">
         <li class="list-group-item">
             <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
@@ -42,6 +43,14 @@ Quizzer|{{quiz_object.name}}
     <br>
     {% endfor %}
     </ol>
-</div>  
+</div>
+<br>
+<div class="container text-center">
+<form action="{% url 'calculate_score' quizid=quiz_object.quiz_id %}" method="POST">
+    {% csrf_token %}
+<button class="btn btn-primary btn-lg" type="submit">End Test</button> 
+</form>
+</div>
+<br><br>
 {% endif %}
 {% endblock %}

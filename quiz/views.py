@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
@@ -72,6 +72,30 @@ def create_answer_table(quiz_object, question_objects, user_object):
     return
 
 @login_required(login_url = '/accounts/login')
+def score(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, quiz_id=quizid)
+    answers = Answers.objects.filter(quiz = item, applicant=aspirant)
+    list_object = []
+    marks = 0
+    for answer in answers:
+        dicty = dict()
+        ques = answer.question
+        dicty['question'] = ques.question
+        dicty['submission'] = answer.response
+        dicty['correct'] = answer.correct_choice
+        if answer.response == answer.correct_choice:
+            dicty['result'] = '+3'
+            marks = marks + 3
+            list_object.append(dicty)
+        else:
+            dicty['result'] = '-1'
+            marks = marks - 1
+            list_object.append(dicty)
+        total_marks = 3* len(list_object)
+    return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
+
+@login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
     aspirant = request.user
     item = get_object_or_404(Quiz, quiz_id=quizid)
@@ -79,10 +103,13 @@ def conduct_quiz(request, quizid):
     if request.method == 'POST':
         ques = get_object_or_404(Question, id=request.POST['question_id'])
         answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
-        answer_object.response = request.POST['response']
+        answer_object.response = request.POST.get('response')
         answer_object.save()
     else:
-        create_answer_table(item, data, aspirant)
+        try:
+            answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
+        except:
+            create_answer_table(item, data, aspirant)
     querys = []
     for thing in data:
         querys.append(thing)
