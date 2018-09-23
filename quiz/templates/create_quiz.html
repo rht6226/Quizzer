@@ -10,7 +10,13 @@ Quizzer|Create Quiz
     <hr>
     <br>
     {%if error %}
-    <p class='text-center'>{{error}}</p>
+
+        <div class="alert alert-success alert-dismissable">
+    <strong>
+        {{ error }}
+</strong>
+          <button type="button" class="close" data-dismiss="alert" >&times;</button>
+        </div>
     {% endif %}
     <form method="post" enctype="multipart/form-data" action="{% url 'create_quiz'%}">
         {% csrf_token %}

@@ -15,31 +15,16 @@
         <title>QuizOholic</title>
         	<script type="text/javascript" src={% static 'javascript-timer.js'  %}></script>
 
-        <!-- Timer
-        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js" />
-        <style>
-#defaultCountdown { width: 240px; height: 45px; }
-</style>
-             <script type="text/javascript" src="{% static 'timer/js/jquery.plugin.js'%}" ></script>
-        <script type="text/javascript" src ="{% static 'timer/js/jquery.countdown.js' %}"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script>
-$(function () {
-
-	$('#defaultCountdown').countdown({until: {{quiz_object.duration}});
-
-});
-</script> -->
 
 
-
-        <link rel="stylesheet" type="text/css" href="{% static 'timer/css/jquery.countdown.css' %}" >
 
     </head>
     <body>
         <div class="container-fluid" style="background-color:#40739e;max-width: 100%;height: 50px">
             <div class="row justify-content-around" >
-                <div class="col-md-7" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Patua One', cursive;color: #f5f6fa"> QuizOholic</div>
+                <div class="col-md-6" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Patua One', cursive;color: #f5f6fa"> QuizOholic</div>
+                <div class="col-md-1" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Patua One', cursive;color: #f5f6fa ;display: none" id="forcookie">{{ quiz_object.Quiz_id }}</div>
+
                 <div class="col-md-5"  style="padding-top: 3px;padding-left: 350px; font-size:2rem;color: #f5f6fa;font-family: 'Patua One', cursive;">Time : <span id='timer'>{{ quiz_object.duration }}</span></div>
 {#              <div class="col-md-4" id="demo" style="float: right">Time</div>#}
             </div>
@@ -73,12 +58,20 @@ $(function () {
                         <div id="mytimer"></div>
 
 
+<!--Timer-->
+       <script type="text/javascript">
+        var forcookie=document.getElementById('forcookie').innerHTML;
+        if(getCookie(forcookie)){
+            var total_seconds=getCookie(forcookie);
 
+        }
+        else {
+            var fetch_time = document.getElementById('timer').innerHTML;
+            var pieces = fetch_time.split(":");
+            var total_seconds = 3600 * parseInt(pieces[0]) + 60 * parseInt(pieces[1]) + parseInt(pieces[2]);
 
-                        <script type="text/javascript">
-        var fetch_time=document.getElementById('timer').innerHTML;
-        var pieces=fetch_time.split(":");
-        var total_seconds = 3600*parseInt(pieces[0])  + 60*parseInt(pieces[1]) + parseInt(pieces[2]);
+            document.write(getCookie(forcookie))
+        }
         var hours=parseInt(total_seconds/3600);
         var minutes=parseInt(total_seconds/60);
         var seconds=parseInt(total_seconds%60);
@@ -107,14 +100,34 @@ $(function () {
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
              setTimeout("checkTime()",1000);
-        }}
+        }
+        setCookie(forcookie,total_seconds,1);}
         setTimeout("checkTime()",1000);
 
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
+ function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 
 
 
 	</script>
+    <!--Timer Ends-->
                     </div>
                 </div>
             </div>
