@@ -11,49 +11,95 @@
         <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Audiowide|Cabin+Sketch|Concert+One|Fredericka+the+Great|Josefin+Slab|Monoton|Tangerine" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
         <title>QuizOholic</title>
         	<script type="text/javascript" src={% static 'javascript-timer.js'  %}></script>
+ <style>
+     .btn-hover.color-10 {
+        background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
+    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
+.buttons {
+    margin:
+    text-align: center;
+}
+
+.btn-hover {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 6px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+ </style>
 
 
 
     </head>
     <body>
-        <div class="container-fluid" style="background-color:#40739e;max-width: 100%;height: 50px">
+        <div class="container-fluid " style="background-color:#5042f4;max-width: 100%;height: 50px">
             <div class="row justify-content-around" >
-                <div class="col-md-6" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Patua One', cursive;color: #f5f6fa"> QuizOholic</div>
-                <div class="col-md-1" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Patua One', cursive;color: #f5f6fa ;display: none" id="forcookie">{{ quiz_object.Quiz_id }}</div>
+                <div class="col-md-6" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Monoton', cursive;color: #f5f6fa"> QuizOholic</div>
+                <div class="col-md-1" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: ''Josefin Slab', serif', cursive;color: #f5f6fa ;display: none" id="forcookie">{{ quiz_object.Quiz_id }}</div>
 
-                <div class="col-md-5"  style="padding-top: 3px;padding-left: 350px; font-size:2rem;color: #f5f6fa;font-family: 'Patua One', cursive;">Time : <span id='timer'>{{ quiz_object.duration }}</span></div>
+                <div class="col-md-5"  style="padding-top: 3px;padding-left: 350px; font-size:2rem;color: #f5f6fa;font-family: 'Cabin sketch', cursive; ">Time : <span id='timer' style="padding:2px;border-style: solid;border-color: whitesmoke; border-radius:12px;">{{ quiz_object.duration }}</span></div>
 {#              <div class="col-md-4" id="demo" style="float: right">Time</div>#}
             </div>
         </div>
 
         <div class="container-fluid" style="background-color: #f1f2f6">
             <div class="row" style="padding-top: 12px padding-left:7px">
-                <div class="col-md-4 " style="font-family: 'Noto Sans JP';padding-top: 10px;"><h4>{{quiz_object.name}}</h4></div>
+                <div class="col-md-4 " style="font-family: 'Fredericka the Great', cursive;padding-top: 15px;"><h4><u>{{quiz_object.name}}</u></h4></div>
                 <div class="col-md-8 float-right">
                <form name="quiz" action="{% url 'calculate_score' quizid=quiz_object.Quiz_id %}" method="POST">
-            {% csrf_token %}  <button type="submit" class="btn btn-outline-primary btn-lg float-right mt-1" >End Test</button>
+            {% csrf_token %}  <button type="submit" class="btn-hover color-10 float-right" >End Test</button>
                </form> </div>
             </div>
             <div class="row justify-content-center" style="padding-left: 0px;margin-top: 10px;">
-                <div class="col-md-2" style="height: 32em;width: auto;overflow-y: auto" id="questions">
+                <div class="col-md-2 card border-right-0 " style="border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions;">
 
                             {% for obj in quiz_data%}
-
-                            <div class="row align-items-center" style=" padding-left: 5px; color: #2f3640;background-color: white;height: 5em;font-family: 'Crete+Round', serif;font-size: 20px">
+                   <div class="row align-items-center" style="color: #2f3640;height: 4em;font-family: 'Crete+Round', serif;font-size: 20px">
                                     <a href="#" onclick="myFunction()"> {{obj.id}}.){{ obj.question|truncatechars:40 }}</a>
+
                         </div>
-                                <hr/>
+
 
                     {% endfor %}
 {#                            <div class="row align-items-center" style="color: #2f3640;font-family: 'Crete+Round', serif;font-size: 20px;background-color: #f8f9fa;height: 5em;">#}
 {#                                    <a href="#"> Q2. What is p-n junction diode ?</a>#}
 {#                        </div>#}
                     </div>
-                <div class="col-md-10" style="border-style: solid;border-color: #7f8fa6;border-width: 1px;background-color: white">
+                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 1px;background-color: white;border-radius: 10px;">
                     <div class="row" style="max-width: 100%;height: 10em;background-color: white;">
                         <div id=""></div>
 
@@ -72,7 +118,7 @@
 
         }
 
-            document.write(total_seconds);
+
         var hours=parseInt(total_seconds/3600);
         var minutes=parseInt((total_seconds%3600)/60);
         var seconds=parseInt(total_seconds%60);
@@ -143,6 +189,15 @@ function setCookie(cname,cvalue,exdays) {
 {# $("#show").html('<button type='submit'>{{ quiz_object.name }}</button>');#}
 {#}#}
 {#</script>#}
+
+    <footer class="text-muted">
+        <div class="container text-center" style="font-family:'Josefin Slab', serif; font-size:20px;">
+          <p>&copy; Binary Compatible {% now "Y" %}</p>
+          <br>
+        </div>
+      </footer>
+
+
     </body>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
