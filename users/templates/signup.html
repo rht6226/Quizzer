@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Quizzer|SignUp
+{% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+
+{% if error2 %}
+<br>
+<script>{{error2}}</script>
+<br>
+{% endif %}
+
+<div class="container card" style="width: 38rem; padding:28px; margin:45px auto;">
+        <form class="form-signin" method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div class="text-center">
+                <img src="{% static 'letter-q.png' %}" width="60" class="d-inline-block align-top">
+                <h1 class="h3 mb-3 font-weight-normal">Sign Up!</h1>
+            </div> 
+                <label for="username">Username :</label>
+                <input type="text" id="username" class="form-control -p3" placeholder="Enter Alias" required autofocus name="username"><br>
+                <label for="email">Email :</label>
+                <input type="email" id="email" class="form-control -p3" placeholder="Enter Email" required autofocus name="email"><br>
+                <label for="inputPassword">Password :</label>
+                <input type="password" id="inputPassword" class="form-control -p3" placeholder="Password" required name="password1"><br>
+                <label for="confirmpassword">Confirm Password :</label>
+                <input type="password" id="confirmpassword" class="form-control -p3" placeholder="Enter Password again" required autofocus name="password2">
+                <br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up!</button>
+            </form>
+        </div>
+{% endblock %}

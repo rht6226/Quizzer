@@ -1,0 +1,10 @@
+body{
+    width:100%;
+}
+.nav-img{
+    border: 2px white solid;
+    border-radius: 50%;
+}
+.main-icon{
+    width: 40px;
+}

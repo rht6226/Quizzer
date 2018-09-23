@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quizzer|{{quiz_object.name}} Result
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <h2 class='col-6'>{{quiz_object.name}}</h2>
+    <p class= 'col-4'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
+    <hr>
+    <h1 class="display-4">
+        You Scored {{score}} out of {{max}} marks!
+    </h1>
+    <br>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col-6">Question</th>
+            <th scope="col-2">Your Response</th>
+            <th scope="col-2">Correct Response</th>
+            <th scope="col-2">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dicty in data%}
+            <tr>
+                <th scope="row">{{dicty.question}}</th>
+                <td>{{dicty.submission}}</td>
+                <td>{{dicty.correct}}</td>
+                <td>{{dicty.result}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>  
+{% endif %}
+{% endblock %}

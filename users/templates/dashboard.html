@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <br/>
+    <br>
+    <br>
+    <div class="container">
+{#    {% if messages %}#}
+{#        <div class="alert alert-success">#}
+{#  {{ message }}#}
+{#     </div>#}
+{#        {{ endif }}#}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissable">
+    <strong>
+        {{ message }}
+</strong>
+          <button type="button" class="close" data-dismiss="alert" >&times;</button>
+        </div>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="row">
+
+        <div class="col-md">
+            <a href="" class="btn btn-primary btn-lg btn-block btn-huge" data-toggle="modal" data-target="#myModal">Start A Quiz</a>
+        </div>
+
+        <div class="col-md">
+            <a href="{% url 'create_quiz' %}" class="btn btn-primary btn-lg btn-block btn-huge">Create a Quiz</a>
+        </div>
+</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <form class="form-signin"  method="POST" action="{% url 'start_quiz' %}">
+        {% csrf_token %}
+        <div class="text-center">
+            <img src="{% static 'letter-q.png' %}" width="60" class="d-inline-block align-top">
+            <h1 class="h3 mb-3 font-weight-normal">Enter Credentials</h1>
+        </div>
+            <label for="quizid">Quiz-Id :</label>
+            <input type="text" id="quizid" class="form-control -p3" placeholder="Enter Quiz-Id" required autofocus name="quizid"><br>
+            <label for="inputPassword">Password :</label>
+            <input type="password" id="password" class="form-control -p3" placeholder="Password" required name="password"><br>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Start Quiz</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

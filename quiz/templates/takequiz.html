@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quizzer|{{quiz_object.name}}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <h1 class='col-6'>{{quiz_object.name}}</h1>
+    <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
+    <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
+    <hr>
+    <ol>
+    {% for obj in quiz_data%}
+    <br>
+    <ul class="list-group">
+        <li class="list-group-item">{{obj.question}}</li>
+        <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
+            {% csrf_token %}
+        <input type="hidden" value="{{obj.id}}" name="question_id">
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
+            <span class='col-11'>{{obj.a}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="response">
+            <span class='col-11'>{{obj.b}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="response">
+            <span class='col-11'>{{obj.c}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="response">
+            <span class='col-11'>{{obj.d}}</span>
+        </li>
+        <li class="list-group-item">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </li>
+        </form>
+    </ul>
+    <br>
+    {% endfor %}
+    </ol>
+    <br>
+    <div class="container text-center">
+        <form action="{% url 'calculate_score' quizid=quiz_object.Quiz_id %}" method="POST">
+            {% csrf_token %}
+        <button class="btn btn-primary btn-lg" type="submit">End Test</button> 
+        </form>
+    </div>
+    <br><br>
+</div>
+{% endif %}
+{% endblock %}
