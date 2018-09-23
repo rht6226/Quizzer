@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+<h2><u>Quizmaster</u>: {{ quiz_object.quizmaster }}</h2>
+<h4><u>About</u>: {{ quiz_object.about }}</h4>
+</div>
+    <br>
+    <br>
+<div class="container">
+<div class="row">
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-7">
+        <h2><u>Instructions</u></h2>
+            </div>
+            <div class="col-md-3"><h2><u>Time</u>: {{quiz_object.duration}}</h2></div>
+        </div>
+
+        <ol >
+            <li class="text-muted">All questions are compulsory</li>
+            <li class="text-muted">There will {{ quiz_object.positive }} marks for correct answer and {{ quiz_object.negative }} will be deducted for wrong answer.</li>
+
+            <li class="text-muted"></li>
+        </ol>
+    </div>
+    <div class="col-md-3">
+        <div class="container card" style="width: 28rem; padding:28px; margin:45px auto;">
+    <form class="form-signin" method="POST" action="{% url 'quiz_auth' quizid=quiz_object.Quiz_id  %}">
+        {% csrf_token %}
+        <div class="text-center">
+
+            <h1 class="h3 mb-3 font-weight-normal">Let's Start</h1>
+        </div>
+            <label for="username">Username :</label>
+            <input type="text" id="username" disabled class="form-control -p3"  required autofocus name="username" value="{{ user.username }}"><br>
+            <label for="inputPassword">Password :</label>
+            <input type="password" id="inputPassword" class="form-control -p3" placeholder="Test-Password" required name="password"><br>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Start Quiz</button>
+        </form>
+    </div>
+
+    </div>
+</div>
+</div>
+`
+{% endblock %}

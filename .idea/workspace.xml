@@ -2,10 +2,72 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1756761b-c00e-4c90-ac36-dfe56dc696be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz/templates/Quiz.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/quiz/templates/Quiz1.html" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/templates/Quiz1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quiz/templates/create_quiz.html" beforeDir="false" afterPath="$PROJECT_DIR$/quiz/templates/create_quiz.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz/templates/start.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/css/jquery.countdown.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/img/countdownGlowing.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/img/countdownLED.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-bg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-bn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-bs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ca.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-cs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-cy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-da.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-de.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-el.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-es.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-et.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-fa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-fi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-fo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-fr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-gl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-gu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-he.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-hr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-hu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-hy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-id.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-is.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ja.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-kn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ko.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-lt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-lv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-mk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-my.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-nb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-nl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-pl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-pt-BR.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ro.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ru.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sr-SR.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-sv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-th.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-tr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-uk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-ur.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-uz.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-vi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-zh-CN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown-zh-TW.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.countdown.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.plugin.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/timer/js/jquery.plugin.min.map" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +90,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="8" />
+          <entry key="html" value="10" />
           <entry key="js" value="2" />
           <entry key="py" value="9" />
           <entry key="txt" value="1" />
@@ -36,7 +98,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="8" />
+          <entry key="HTML" value="10" />
           <entry key="JavaScript" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="9" />
@@ -44,7 +106,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="3568" />
+          <entry key="html" value="3954" />
           <entry key="js" value="230" />
           <entry key="py" value="132" />
           <entry key="txt" value="5" />
@@ -53,7 +115,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="16" />
-          <entry key="HTML" value="3552" />
+          <entry key="HTML" value="3938" />
           <entry key="JavaScript" value="230" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="Python" value="132" />
@@ -66,8 +128,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quiz/templates/Quiz1.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="103" column="19" selection-start-line="103" selection-start-column="19" selection-end-line="103" selection-end-column="19" />
+            <state relative-caret-position="119">
+              <caret line="77" column="47" lean-forward="true" selection-start-line="77" selection-start-column="47" selection-end-line="77" selection-end-column="47" />
               <folding>
                 <element signature="e#1218#1279#0#HTML" expanded="true" />
                 <element signature="e#1373#1478#0#HTML" expanded="true" />
@@ -87,19 +149,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quiz/templates/takequiz.html">
+        <entry file="file://$PROJECT_DIR$/quiz/templates/instructions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+            <state relative-caret-position="258">
+              <caret line="47" column="1" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quiz/templates/takequiz.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quiz/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+            <state relative-caret-position="153">
+              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -120,6 +187,8 @@
         <option value="$PROJECT_DIR$/quiz/templates/indexTimer.html" />
         <option value="$PROJECT_DIR$/Quizzer/static/javascript-timer.js" />
         <option value="$PROJECT_DIR$/quiz/templates/create_quiz.html" />
+        <option value="$PROJECT_DIR$/quiz/templates/instructions.html" />
+        <option value="$PROJECT_DIR$/quiz/templates/takequiz.html" />
         <option value="$PROJECT_DIR$/quiz/templates/Quiz1.html" />
       </list>
     </option>
@@ -130,7 +199,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
@@ -238,7 +307,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14674735" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14674735" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -252,7 +321,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.28032786" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.28032786" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -274,6 +343,10 @@
           <url>file://$PROJECT_DIR$/quiz/templates/takequiz.html</url>
           <line>18</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="django-line">
+          <url>file://$PROJECT_DIR$/quiz/templates/takequiz.html</url>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -339,13 +412,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quiz/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quiz/templates/create_quiz.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -378,17 +444,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quiz/templates/takequiz.html">
+    <entry file="file://$PROJECT_DIR$/quiz/templates/start.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quiz/templates/Quiz1.html">
+    <entry file="file://$PROJECT_DIR$/quiz/templates/instructions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="47" column="1" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quiz/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="103" column="19" selection-start-line="103" selection-start-column="19" selection-end-line="103" selection-end-column="19" />
+          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quiz/templates/takequiz.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quiz/templates/Quiz1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="77" column="47" lean-forward="true" selection-start-line="77" selection-start-column="47" selection-end-line="77" selection-end-column="47" />
           <folding>
             <element signature="e#1218#1279#0#HTML" expanded="true" />
             <element signature="e#1373#1478#0#HTML" expanded="true" />

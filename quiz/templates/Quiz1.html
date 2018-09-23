@@ -55,7 +55,7 @@
                     </div>
                 <div class="col-md-10" style="border-style: solid;border-color: #7f8fa6;border-width: 1px;background-color: white">
                     <div class="row" style="max-width: 100%;height: 10em;background-color: white;">
-                        <div id="mytimer"></div>
+                        <div id=""></div>
 
 
 <!--Timer-->
@@ -70,10 +70,11 @@
             var pieces = fetch_time.split(":");
             var total_seconds = 3600 * parseInt(pieces[0]) + 60 * parseInt(pieces[1]) + parseInt(pieces[2]);
 
-            document.write(getCookie(forcookie))
         }
+
+            document.write(total_seconds);
         var hours=parseInt(total_seconds/3600);
-        var minutes=parseInt(total_seconds/60);
+        var minutes=parseInt((total_seconds%3600)/60);
         var seconds=parseInt(total_seconds%60);
 
          hours = hours < 10 ? "0" + hours : hours;
@@ -93,7 +94,7 @@
              total_seconds=total_seconds-1;
 
              hours=parseInt(total_seconds/3600);
-             minutes=parseInt(total_seconds/60);
+             minutes=parseInt((total_seconds%3600)/60);
              seconds=parseInt(total_seconds%60);
             hours = hours < 10 ? "0" + hours : hours;
             minutes = minutes < 10 ? "0" + minutes : minutes;
