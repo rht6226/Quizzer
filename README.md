@@ -7,4 +7,4 @@ Created a quizzing platform to be used in conducting online quizzes using DJANGO
 This Project can be utilized in a wide range of Educational Institutes like Colleges, Schools, Coaching Institutes etc. It is still under development and I plan on keep working on it till it is ready to be used commercially.
 ## Instructions to run locally
 1 Hello
--hpola
+  - hpola
