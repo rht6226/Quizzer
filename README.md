@@ -6,8 +6,7 @@ Created a quizzing platform to be used in conducting online quizzes using DJANGO
 ## Scope
 This Project can be utilized in a wide range of Educational Institutes like Colleges, Schools, Coaching Institutes etc. It is still under development and I plan on keep working on it till it is ready to be used commercially.
 ## Instructions to run locally
- 1 Install Python and some dev tools for Python
-  - $ sudo apt-get install python-pip python-dev build-essential
-  - $ apt install Python3.6;
- 2 holalola
-  - holalol
+1. helo
+ - hola
+2.japo
+ -haop
