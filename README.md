@@ -8,7 +8,7 @@ This Project can be utilized in a wide range of Educational Institutes like Coll
 ## Instructions to run locally
 1 Install Python and some dev tools for Python
   - $ sudo apt-get install python-pip python-dev build-essential
-  - $ apt install Python3.6
+  - $ apt install Python3.6,
 2 use easy_install for older versions of ubuntu e.g -$ easy_install python3-pip
 3 Install Pip
    - $ apt install python3-pip
