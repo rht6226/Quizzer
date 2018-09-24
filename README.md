@@ -8,5 +8,5 @@ This Project can be utilized in a wide range of Educational Institutes like Coll
 ## Instructions to run locally
 1. helo
  - hola
-2.japo
- -haop
+2. japo
+ - haop
