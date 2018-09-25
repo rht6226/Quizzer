@@ -14,8 +14,11 @@
 <link href="https://fonts.googleapis.com/css?family=Audiowide|Cabin+Sketch|Concert+One|Fredericka+the+Great|Josefin+Slab|Monoton|Tangerine" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
         <title>QuizOholic</title>
-        	<script type="text/javascript" src={% static 'javascript-timer.js'  %}></script>
+
  <style>
+     .showAll{
+         display:block;
+     }
      .btn-hover.color-10 {
         background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
     box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
@@ -69,8 +72,10 @@
         <div class="container-fluid " style="background-color:#5042f4;max-width: 100%;height: 50px">
             <div class="row justify-content-around" >
                 <div class="col-md-6" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Monoton', cursive;color: #f5f6fa"> QuizOholic</div>
+                <!--for cookies-->
                 <div class="col-md-1" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: ''Josefin Slab', serif', cursive;color: #f5f6fa ;display: none" id="forcookie">{{ quiz_object.Quiz_id }}</div>
-
+                <div class="col-md-1" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: ''Josefin Slab', serif', cursive;color: #f5f6fa ;display: none" id="forcookie_user">{{ user }}</div>
+                <!--End cookies-->
                 <div class="col-md-5"  style="padding-top: 3px;padding-left: 350px; font-size:2rem;color: #f5f6fa;font-family: 'Cabin sketch', cursive; ">Time : <span id='timer' style="padding:2px;border-style: solid;border-color: whitesmoke; border-radius:12px;">{{ quiz_object.duration }}</span></div>
 {#              <div class="col-md-4" id="demo" style="float: right">Time</div>#}
             </div>
@@ -85,28 +90,76 @@
                </form> </div>
             </div>
             <div class="row justify-content-center" style="padding-left: 0px;margin-top: 10px;">
-                <div class="col-md-2 card border-right-0 " style="border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions;">
+                <div class="col-md-2 card border-right-0 " style="border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions">
 
                             {% for obj in quiz_data%}
-                   <div class="row align-items-center" style="color: #2f3640;height: 4em;font-family: 'Crete+Round', serif;font-size: 20px">
-                                    <a href="#" onclick="myFunction()"> {{obj.id}}.){{ obj.question|truncatechars:40 }}</a>
 
-                        </div>
-
+                 <a href="#" class="link"  onclick="quesFetch({{ obj.id }})">{{obj.question}}</a>
+                                <br>
+                                <br>
 
                     {% endfor %}
-{#                            <div class="row align-items-center" style="color: #2f3640;font-family: 'Crete+Round', serif;font-size: 20px;background-color: #f8f9fa;height: 5em;">#}
-{#                                    <a href="#"> Q2. What is p-n junction diode ?</a>#}
-{#                        </div>#}
+
                     </div>
-                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 1px;background-color: white;border-radius: 10px;">
-                    <div class="row" style="max-width: 100%;height: 10em;background-color: white;">
-                        <div id=""></div>
+                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 3px;background-color: white;border-radius: 10px;">
+                    <div class="row content" style="max-width: 100%;height: 10em;background-color: white;">
 
+                                              {% for obj in quiz_data%}
+                        <div id="{{ obj.id }}" class="container" style="display:none;">
 
+    <br>
+
+    <ul class="list-group">
+ <li href="#" class="link" id="{{ obj.id }}" onclick="quesFetch({{ obj.id }})">{{obj.question}}</li>
+
+        <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
+            {% csrf_token %}
+
+        <input type="hidden" value="{{obj.id}}" name="question_id">
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
+            <span class='col-11'>{{obj.a}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="response">
+            <span class='col-11'>{{obj.b}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="response">
+            <span class='col-11'>{{obj.c}}</span>
+        </li>
+        <li class="list-group-item">
+            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="response">
+            <span class='col-11'>{{obj.d}}</span>
+        </li>
+        <li class="list-group-item">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </li>
+        </form>
+    </ul>
+    <br>
+    {% endfor %}
+
+                        </div>
+<!--Question fetch-->
+
+                        <script>
+function quesFetch(id) {
+
+   var x = document.getElementById(id);
+   console.log(id);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+</script>
 <!--Timer-->
+
        <script type="text/javascript">
-        var forcookie=document.getElementById('forcookie').innerHTML;
+        var forcookie=document.getElementById('forcookie').innerHTML+document.getElementById('forcookie_user').innerHTML;
         if(getCookie(forcookie)){
             var total_seconds=getCookie(forcookie);
 
@@ -129,11 +182,10 @@
        seconds = seconds < 10 ? "0" + seconds : seconds;
 
         function checkTime(){
-        document.getElementById('timer').innerHTML=hours +':'+ minutes +': ' +seconds;
+        document.getElementById('timer').innerHTML=hours +':'+ minutes +':' +seconds;
         if(total_seconds<=0)
         {
          setTimeout('document.quiz.submit()',1);
-
         }
         else
         {
@@ -190,12 +242,6 @@ function setCookie(cname,cvalue,exdays) {
 {#}#}
 {#</script>#}
 
-    <footer class="text-muted">
-        <div class="container text-center" style="font-family:'Josefin Slab', serif; font-size:20px;">
-          <p>&copy; Binary Compatible {% now "Y" %}</p>
-          <br>
-        </div>
-      </footer>
 
 
     </body>

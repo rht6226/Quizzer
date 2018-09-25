@@ -2,32 +2,47 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="container">
-<h2><u>Quizmaster</u>: {{ quiz_object.quizmaster }}</h2>
-<h4><u>About</u>: {{ quiz_object.about }}</h4>
-</div>
-    <br>
-    <br>
+
 <div class="container">
 <div class="row">
     <div class="col-md-7">
-        <div class="row">
-            <div class="col-md-7">
-        <h2><u>Instructions</u></h2>
-            </div>
-            <div class="col-md-3"><h2><u>Time</u>: {{quiz_object.duration}}</h2></div>
-        </div>
+        <div class="container">
+<h2><u>Quizmaster</u>: {{ quiz_object.quizmaster }}</h2>
+    <div class="card bg-light mb-3">
+  <div class="card-header">About</div>
+  <div class="card-body">
+{#    <h5 class="card-title">Primary card title</h5>#}
+    <p class="card-text">{{ quiz_object.about }}</p>
+  </div>
+</div>
 
-        <ol >
-            <li class="text-muted">All questions are compulsory</li>
-            <li class="text-muted">There will {{ quiz_object.positive }} marks for correct answer and {{ quiz_object.negative }} will be deducted for wrong answer.</li>
+</div>
+    <br>
+    <br>
+     <div class="row">
+         <div class="container">
+         <div class="card border-light ">
+  <div class="card-header">Instructions <span class="float-right">Duration: {{ quiz_object.duration }}</span></div>
+  <div class="card-body">
 
-            <li class="text-muted"></li>
+    <ol >
+            <li class="text-muted" style="margin-bottom:10px;">All questions are compulsory.</li>
+            <li class="text-muted" style="margin-bottom:10px;">There will {{ quiz_object.positive }} marks for correct answer and {{ quiz_object.negative }} will be deducted for wrong answer.</li>
+
+            <li class="text-muted" style="margin-bottom:10px;">You are advised to not indulge in wrong ethics.</li>
+            <li class="text-muted" style="margin-bottom:10px;">In case of any discrepancy contact Quizmaster.</li>
+            <li class="text-muted" style="margin-bottom:10px;">Happy Quizzing!!.</li>
+
         </ol>
+  </div>
+</div>
+</div>
+     </div>
+
     </div>
     <div class="col-md-3">
         <div class="container card" style="width: 28rem; padding:28px; margin:45px auto;">
-    <form class="form-signin" method="POST" action="{% url 'quiz_auth' quizid=quiz_object.Quiz_id  %}">
+    <form class="form-signin" method="POST" action="{% url 'quiz_auth' quizid=quiz_object.Quiz_id %}">
         {% csrf_token %}
         <div class="text-center">
 

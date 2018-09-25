@@ -17,7 +17,7 @@ def home(request):
 
 @login_required(login_url = '/accounts/login')
 def start(request):
-    return render(request, 'start.html')
+    return render(request, 'instructions.html')
 
 
 def start_quiz(request):
@@ -25,22 +25,36 @@ def start_quiz(request):
     if request.method == 'POST':
         try:
            item=Quiz.objects.get(Quiz_id=request.POST['quizid'])
+           user = request.user
 
+           return render(request, 'instructions.html', {'quiz_object': item, 'user': user})
            # item=Quiz(Quiz_id=request.POST['quizid'],Test_password=request.POST['tPass'])
 
-           if item.Test_Password==request.POST['password']:
-             request.session['username'] = request.user.get_username()
-             return redirect('test/'+str(item.Quiz_id))
-           else:
-
-            # return render(request, 'start', {'error': 'Invalid Credentials!'})
-            messages.info(request,'Invalid Credentials')
-            return redirect('dashboard')
+           # if item.Test_Password==request.POST['password']:
+           #   request.session['username'] = request.user.get_username()
+           #   return redirect('test/'+str(item.Quiz_id))
+           # else:
+           #
+           #  # return render(request, 'start', {'error': 'Invalid Credentials!'})
+           #  messages.info(request,'Invalid Credentials')
+           #  return redirect('dashboard')
         except Quiz.DoesNotExist:
             messages.info(request,'Quiz does not exists!')
             return redirect('dashboard')
         else:
             return render(request, 'start')
+
+
+def quiz_auth(request, quizid):
+    item = Quiz.objects.get(Quiz_id=quizid)
+    if item.Test_Password == request.POST['password']:
+        request.session['username'] = quizid
+        return redirect('test/'+ str(quizid))
+    else:
+
+        # return render(request, 'start', {'error': 'Invalid Credentials!'})
+        messages.info(request, 'Invalid Credentials')
+        return redirect('dashboard')
 
 def clean(f):
     data = list()
@@ -143,24 +157,25 @@ def score(request, quizid):
 
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
-    aspirant = request.user
-    item = get_object_or_404(Quiz, Quiz_id=quizid)
-    data = Question.objects.filter(quiz = item)
-    if request.method == 'POST':
-        ques = get_object_or_404(Question, id=request.POST['question_id'])
-        answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
-        answer_object.response = request.POST.get('response')
-        answer_object.save()
-    
-    querys = []
-    for thing in data:
-        querys.append(thing)
+    if request.session['username']==quizid:
+        aspirant = request.user
+        item = get_object_or_404(Quiz, Quiz_id=quizid)
+        data = Question.objects.filter(quiz = item)
+        if request.method == 'POST':
+            ques = get_object_or_404(Question, id=request.POST['question_id'])
+            answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
+            answer_object.response = request.POST.get('response')
+            answer_object.save()
 
-    else:
-        try:
-            answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
-        except:
-            create_answer_table(item, data, aspirant)
-    shuffle(querys)
-        
-    return render(request, 'quiz1.html', {'quiz_object': item, 'quiz_data': querys})
+        querys = []
+        for thing in data:
+            querys.append(thing)
+
+        else:
+            try:
+                answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
+            except:
+                create_answer_table(item, data, aspirant)
+        shuffle(querys)
+
+        return render(request, 'Quiz1.html', {'quiz_object': item, 'quiz_data': querys, 'user':aspirant})

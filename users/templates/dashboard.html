@@ -38,22 +38,24 @@
     <br>
     <br>
     <hr>
+ <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
     <div class="modal-content">
-      
+
       <div class="modal-body">
         <form class="form-signin"  method="POST" action="{% url 'start_quiz' %}">
         {% csrf_token %}
         <div class="text-center">
             <img src="{% static 'letter-q.png' %}" width="60" class="d-inline-block align-top">
-            <h1 class="h3 mb-3 font-weight-normal">Enter Credentials</h1>
+
+            <h1 class="h3 mb-3 font-weight-normal">Enter Quiz-id</h1>
         </div>
             <label for="quizid">Quiz-Id :</label>
             <input type="text" id="quizid" class="form-control -p3" placeholder="Enter Quiz-Id" required autofocus name="quizid"><br>
-            <label for="inputPassword">Password :</label>
-            <input type="password" id="password" class="form-control -p3" placeholder="Password" required name="password"><br>
-            <br>
+
             <button class="btn btn-lg btn-primary btn-block" type="submit">Start Quiz</button>
         </form>
       </div>

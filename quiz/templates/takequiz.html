@@ -15,9 +15,10 @@ Quizzer|{{quiz_object.name}}
     {% for obj in quiz_data%}
     <br>
     <ul class="list-group">
-        <li class="list-group-item">{{obj.question}}</li>
+
         <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
             {% csrf_token %}
+
         <input type="hidden" value="{{obj.id}}" name="question_id">
         <li class="list-group-item">
             <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
