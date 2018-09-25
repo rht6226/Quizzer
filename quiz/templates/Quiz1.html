@@ -98,19 +98,9 @@
                                 <br>
                                 <br>
 
-                    {% endfor %}
 
-                    </div>
-                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 3px;background-color: white;border-radius: 10px;">
-                    <div class="row content" style="max-width: 100%;height: 10em;background-color: white;">
-
-                                              {% for obj in quiz_data%}
-                        <div id="{{ obj.id }}" class="container" style="display:none;">
-
-    <br>
-
-    <ul class="list-group">
- <li href="#" class="link" id="{{ obj.id }}" onclick="quesFetch({{ obj.id }})">{{obj.question}}</li>
+    <ul class="list-group" style="display: none;" id="{{ obj.id }}">
+ <li href="#" class="link" id="">{{obj.question}}</li>
 
         <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
             {% csrf_token %}
@@ -137,25 +127,42 @@
         </li>
         </form>
     </ul>
-    <br>
-    {% endfor %}
+
+
+
+                    {% endfor %}
+                </div>
+                
+                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 3px;background-color: white;border-radius: 10px;">
+                    <div class="container center-block" id="content" style="max-width: 100%;height: 10em;background-color: white;">
+
+
 
                         </div>
 <!--Question fetch-->
 
                         <script>
 function quesFetch(id) {
-
+    var y=document.getElementById('content');
    var x = document.getElementById(id);
-   console.log(id);
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+   var cln=x.cloneNode(true);
+   y.innerHTML="";
+               if (cln.style.display === "none")
+        cln.style.display = "block";
+                else
+        cln.style.display = "none";
+
+
+    console.log(x);
+
+   y.appendChild(cln);
+        console.log(y);
+
+
 }
 
 </script>
+<!-- Question fetch ends -->
 <!--Timer-->
 
        <script type="text/javascript">
@@ -227,6 +234,9 @@ function setCookie(cname,cvalue,exdays) {
 
 	</script>
     <!--Timer Ends-->
+ <!--Ajax-->
+
+ <!-- Ajax ends -->
                     </div>
                 </div>
             </div>
