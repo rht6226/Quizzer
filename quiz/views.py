@@ -151,7 +151,7 @@ def score(request, quizid):
                 dicty['result'] = '-' + str(item.negative)
                 marks = marks - item.negative
         list_object.append(dicty)
-        total_marks = 3* len(list_object)
+        total_marks = (item.positive) * len(list_object)
     return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
 
 
@@ -162,8 +162,8 @@ def conduct_quiz(request, quizid):
         item = get_object_or_404(Quiz, Quiz_id=quizid)
         data = Question.objects.filter(quiz = item)
         if request.method == 'POST':
-            ques = get_object_or_404(Question, id=request.POST['question_id'])
-            answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
+            ques = Question.objects.get(id= request.POST.get('question_id'))
+            answer_object = Answers.objects.get(applicant=aspirant, quiz=item, question=ques)
             answer_object.response = request.POST.get('response')
             answer_object.save()
 
@@ -176,6 +176,6 @@ def conduct_quiz(request, quizid):
                 answers = get_list_or_404(Answers, applicant=aspirant, quiz=item)
             except:
                 create_answer_table(item, data, aspirant)
-        shuffle(querys)
+                shuffle(querys)
 
         return render(request, 'Quiz1.html', {'quiz_object': item, 'quiz_data': querys, 'user':aspirant})

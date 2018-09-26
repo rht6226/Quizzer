@@ -11,29 +11,30 @@ Quizzer|{{quiz_object.name}}
     <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
     <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
     <hr>
+    <div id="error"></div>
     <ol>
     {% for obj in quiz_data%}
     <br>
     <ul class="list-group">
 
-        <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}">
+        <form method="POST" name="{{obj.id}}">
             {% csrf_token %}
 
-        <input type="hidden" value="{{obj.id}}" name="question_id">
+        <input type="hidden" value="{{obj.id}}" name="question_{{obj.id}}">
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.a}}" id="optionA" name="response">
+            <input class="col-1" type="radio" value="{{obj.a}}"  name="response_{{obj.id}}">
             <span class='col-11'>{{obj.a}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.b}}" id="optionB" name="response">
+            <input class="col-1" type="radio" value="{{obj.b}}"  name="response_{{obj.id}}">
             <span class='col-11'>{{obj.b}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.c}}" id="optionC" name="response">
+            <input class="col-1" type="radio" value="{{obj.c}}"  name="response_{{obj.id}}">
             <span class='col-11'>{{obj.c}}</span>
         </li>
         <li class="list-group-item">
-            <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="response">
+            <input class="col-1" type="radio" value="{{obj.d}}"  name="response_{{obj.id}}">
             <span class='col-11'>{{obj.d}}</span>
         </li>
         <li class="list-group-item">
@@ -55,3 +56,67 @@ Quizzer|{{quiz_object.name}}
 </div>
 {% endif %}
 {% endblock %}
+
+
+
+<script> 
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    var csrftoken = getCookie('csrftoken');
+    
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    
+    {% for obj in quiz_data%}
+    $('form[name ="{{obj.id}}"]').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")
+        var quid = $('input[name="question_{{obj.id}}"]').val();
+        var res = $('input[name="response_{{obj.id}}"]:checked').val();
+        submit(quid, res);
+    });
+    {% endfor %}
+    
+    function submit(quid, res) {
+        console.log("create post is working!") // sanity check
+        $.ajax({
+            url : "{% url 'test' quizid=quiz_object.quiz_id %}", // the endpoint
+            type : "POST", // http method
+            data : {question_id: quid, response: res}, // data sent with the post request
+    
+            // handle a successful response
+            success : function(json) {
+                console.log(res.val())
+                console.log("success is yours Mylord");
+            },
+    
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); 
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    };
+    </script>
