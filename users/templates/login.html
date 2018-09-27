@@ -6,7 +6,13 @@ Quizzer|Login
 
 {% block content %}
 {% load staticfiles %}
-
+<style>
+    .fplink
+    {
+        margin: 10px;
+        text-align: right;
+    }
+</style>
 {% if error %}
 <br>
 <p class='text-center'>{{error}}</p>
@@ -24,6 +30,8 @@ Quizzer|Login
             <input type="text" id="username" class="form-control -p3" placeholder="Enter Alias" required autofocus name="username"><br>
             <label for="inputPassword">Password :</label>
             <input type="password" id="inputPassword" class="form-control -p3" placeholder="Password" required name="password"><br>
+            <a  class='fplink' href="{% url 'password_reset_recover' %}">Forgot Password?</a>
+            <br>
             <br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
         </form>

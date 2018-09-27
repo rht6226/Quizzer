@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Product hunt clone: For development and practice purposes only">
     <meta name="author" content="Rohit Anand">
-          <link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One|Crete+Round|Monoton" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
@@ -24,6 +23,13 @@
     padding-bottom:40px;
 
 }
+.head{
+  text-align: left;
+  padding-top: 5px;
+  font-size:1.8rem;
+  font-family: 'Monoton', cursive;
+  color: #f5f6fa"
+}
 </style>
   </head>
   <body>
@@ -32,7 +38,7 @@
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
               <img src="{% static 'letter-q.png' %}" class="main-icon">
-                 QuizOholic
+              <span class="head">QuizOholic</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -74,7 +80,7 @@
 
    <div class="container">
     {% block content %}
-
+    <br>
     {% endblock %}
    </div>
 
