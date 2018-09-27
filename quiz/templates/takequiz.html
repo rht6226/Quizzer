@@ -106,9 +106,7 @@ function submit(quid, res) {
 
         // handle a successful response
         success : function(json) {
-            console.log($('input[name="question_id"]').val())
             console.log($('input[name="response"]:checked').val())
-            $('input[name="question_id"]').removeData();
             $('input[name="response"]:checked').val('');
             console.log("success is yours Mylord");
         },
