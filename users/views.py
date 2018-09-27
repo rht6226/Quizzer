@@ -16,9 +16,8 @@ def signup(request):
             try:
                 #check if user already exists in database if yes raise error
                 user = User.objects.get(username = request.POST['username'])
-                return render(request, 'signup.html', {'error': 'Username is already taken!'})
                 user = User.objects.get(email = request.POST['email'])
-                return render(request, 'signup.html', {'error': 'Email is already taken!'})           
+                return render(request, 'signup.html', {'error': 'User already Exists!'})           
             except User.DoesNotExist:
                 #username is available
                 user = User.objects.create_user(username =request.POST['username'], password= request.POST['password1'], email= request.POST['email'],)

@@ -16,7 +16,17 @@ Quizzer|{{quiz_object.name}}
     <br>
     <div id="results"></div>
     <ul class="list-group">
-        <li class="list-group-item">{{obj.question}}</li>
+        <li class="list-group-item">
+            <p>{{obj.question}}</p>
+            {% if obj.image != 'https://res.cloudinary.com/dz2bsme0a/image/upload/v1538070889/ques.png' %}
+            <img src="{{obj.image}}" class="img-thumbnail img-fluid col-10">
+            {% endif %}
+            {% if obj.code %}
+            <code>
+                {{obj.code}}
+            </code>
+            {% endif %}
+        </li>
         <form method="POST" action="{% url 'test' quizid=quiz_object.quiz_id %}" name="{{obj.id}}">
             {% csrf_token %}
         <input type="hidden"  value="{{obj.id}}" name="question_{{obj.id}}">

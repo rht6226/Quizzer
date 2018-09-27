@@ -20,7 +20,7 @@ class Profile(models.Model):
         if self.profilepic:
             return self.profilepic.url
         else:
-            return r"/static/user.png"
+            return r"https://cdn4.iconfinder.com/data/icons/mayssam/512/add_user-512.png"
 
 
 @receiver(post_save, sender=User)

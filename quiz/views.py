@@ -54,7 +54,7 @@ def create(request):
                 ques.correct = row[5]
                 ques.save()
             messages.success(request, 'Quiz Successfully created! ')
-            return redirect('/quiz/test/'+ item.quiz_id)
+            return redirect('/quiz/test/edit/'+ item.quiz_id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -105,7 +105,7 @@ def conduct_quiz(request, quizid):
     item = get_object_or_404(Quiz, quiz_id=quizid)
     data = Question.objects.filter(quiz = item)
     if request.method == 'POST':
-        ques = get_object_or_404(Question, id=request.POST['question_id'])
+        ques = get_object_or_404(Question, id=request.POST.get('question_id'))
         answer_object = get_object_or_404(Answers, applicant=aspirant, quiz=item, question=ques)
         answer_object.response = request.POST.get('response')
         answer_object.save()
@@ -128,5 +128,18 @@ def welcome(request, quizid):
     item = get_object_or_404(Quiz, quiz_id=quizid)
     return render(request, 'quizfront.html', {'quiz_object': item})
 
-
+@login_required(login_url = '/accounts/login')
+def edit_quiz(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, quiz_id=quizid)
+    data = Question.objects.filter(quiz = item)
+    if request.method == 'POST':
+        ques = get_object_or_404(Question, id=request.POST.get('question_id'))
+        ques.image = request.POST.get('img')
+        ques.code = request.POST.get('code')
+        ques.save()
+    querys = []
+    for thing in data:
+        querys.append(thing)        
+    return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys})
         

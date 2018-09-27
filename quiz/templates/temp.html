@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quizzer|{{quiz_object.name}}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container p-2">
+    <h1 class='col-6'>{{quiz_object.name}}</h1>
+    <p class='col-10'><b>About -</b> {{quiz_object.about}}</p>
+    <p class= 'col-9'><b>Quizmaster - </b> {{quiz_object.quizmaster}}</p>
+    <hr>
+    <ol>
+    {% for obj in quiz_data%}
+    <br>
+    <div id="results"></div>
+    <ul class="list-group">
+        <li class="list-group-item">{{obj.question}}</li>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'testedit' quizid=quiz_object.quiz_id %}" name="{{obj.id}}">
+            {% csrf_token %}
+        <input type="hidden"  value="{{obj.id}}" name="question">
+        <li class="list-group-item">
+        <p> <input class="form-control" type="file" name='img'> </p>
+        <p>
+            <label for="code">Code If any :</label>
+                <input type="text" class="form-control -p3" placeholder="Enter Your code here if the need arises!" name="code">
+            <br>
+        </p>
+        </li>
+        <li class="list-group-item">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </li>
+        </form>
+    </ul>
+    <br>
+    {% endfor %}
+    </ol>
+</div>
+<br>
+<br><br>

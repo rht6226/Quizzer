@@ -23,11 +23,13 @@ class Question(models.Model):
     c = models.CharField(max_length= 500)
     d = models.CharField(max_length= 500)
     correct = models.CharField(max_length= 500)
+    image = models.URLField(default= "https://res.cloudinary.com/dz2bsme0a/image/upload/v1538070889/ques.png")
+    code = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
         title = self.question[:40]
         return title
-    
+
 
 class Answers(models.Model):
     applicant = models.ForeignKey(User, on_delete= models.CASCADE ) 
