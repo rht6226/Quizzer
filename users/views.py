@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ProfileForm
+from quiz.models import Quiz
 from .models import Profile
 import os
 
@@ -17,19 +18,26 @@ def signup(request):
                 # #check if user already exists in database if yes raise error
 
                 user = User.objects.get(username = request.POST['username'])
-                return render(request, 'signup.html', {'error2': 'Username is already taken!'})
+                return render(request, 'signup.html', {'error': 'Username is already taken!'})
                 #
-                # usermail = User.objects.get(email = request.POST['email'])
-                # return render(request, 'signup.html', {'error1': 'Email is already taken!'})
-            except User.DoesNotExist:
-                #username is available
-                user = User.objects.create_user(username =request.POST['username'], password= request.POST['password1'], email= request.POST['email'],)
-                auth.login(request, user)
-                return redirect('edit_profile')
+
+            except:
+               try:
+                usermail = User.objects.get(email = request.POST['email'])
+                return render(request, 'signup.html', {'error': 'Email is already taken!'})
+               except User.DoesNotExist:
+                   # username is available
+                   user = User.objects.create_user(username=request.POST['username'],
+                                                   password=request.POST['password1'], email=request.POST['email'], )
+                   auth.login(request, user)
+                   return redirect('edit_profile')
 
     else:
         #If request is get
-        return render(request, 'signup.html')
+        if request.user.is_authenticated:
+            return render(request,'dashboard.html')
+        else:
+            return render(request, 'signup.html')
 
 @login_required(login_url = '/accounts/login')
 @transaction.atomic
@@ -61,17 +69,30 @@ def login(request):
         user = auth.authenticate(username = request.POST['username'], password= request.POST['password'])
         if user is not None:
             auth.login(request, user)
-            return redirect('dashboard')
+            item=Quiz.objects.all()
+
+            querys = []
+            for thing in item:
+                querys.append(thing)
+            return render(request,'dashboard.html',{'quiz_object':querys})
         else:
-            return render(request, 'login.html', {'error': 'Invalid Credentials! Please enter correct username and password.'})
+            return render(request, 'base.html', {'error': 'Invalid Credentials! Please enter correct username and password.'})
     else:
-        return render(request, 'login.html')
+        return redirect('dashboard')
 
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('home')
+        return render(request,'home.html')
+
+@login_required(login_url = '/accounts/login')
 def dash(request):
-    return render(request,'dashboard.html')
+
+    item = Quiz.objects.all()
+
+    querys = []
+    for thing in item:
+        querys.append(thing)
+    return render(request, 'dashboard.html', {'quiz_object': querys})
     
     

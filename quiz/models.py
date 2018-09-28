@@ -14,6 +14,7 @@ class Quiz(models.Model):
     negative = models.IntegerField(default=1)
     duration = models.DurationField(default= timedelta())
 
+
     def __str__(self):
             return self.name
 

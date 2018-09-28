@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+
     <br/>
     <br>
     <br>
@@ -24,14 +25,47 @@
 {% endif %}
 <div class="row">
 
+
         <div class="col-md">
-            <a href="" class="btn btn-primary btn-lg btn-block btn-huge" data-toggle="modal" data-target="#myModal">Start A Quiz</a>
+            <button href="" class="btn-hover color-9   btn-block btn-huge" data-toggle="modal" data-target="#myModal">Start A Quiz</button>
         </div>
 
         <div class="col-md">
-            <a href="{% url 'create_quiz' %}" class="btn btn-primary btn-lg btn-block btn-huge">Create a Quiz</a>
+            <button onclick="window.location.href='{% url 'create_quiz' %}'" class="btn-hover color-9   btn-block btn-huge">Create a Quiz</button>
         </div>
 </div>
+        <br>
+        <br>
+        <div class="row">
+            <h1 style="font-family: 'Faster One', cursive; border-left: 6px solid red;
+    background-color: #ecf7f9;">Available Quizzes</h1>
+
+            <table class="table table-striped" style="font-family:'Cute Font', cursive; font-size:1.5em;">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Quiz_Name</th>
+      <th scope="col">Quizmaster</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Attempt</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in quiz_object %}
+
+    <tr>
+
+      <td><strong>{{ obj.name }}</strong></td>
+      <td>{{ obj.quizmaster }}</td>
+      <td>{{ obj.duration }}</td>
+      <td><form method="POST" action="{% url 'start_quiz' %}">{% csrf_token %}<input type="hidden" value="{{obj.Quiz_id}}" name="quizid"><button type="submit" style="font-size:1em;"class="btn btn-default">Start</button></form></td>
+
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+        </div>
     </div>
     <br>
     <br>

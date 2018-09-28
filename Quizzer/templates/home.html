@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Product hunt clone: For development and practice purposes only">
-    <meta name="author" content="Rohit Anand">
+    <meta name="author" content="Binary_compatible">
           <!--<link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">-->
         <!--<link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">-->
     <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
@@ -13,13 +13,13 @@
           <link rel="stylesheet" href="{% static 'base1.css' %}">
          <link rel="stylesheet" href="{% static 'quiz.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+<link href="https://fonts.googleapis.com/css?family=Barrio" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Cute+Font|Faster+One|Sarpanch" rel="stylesheet">
     <title>
         {% block title %}
         {% endblock %}
     </title>
-
+    
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <style>
@@ -43,6 +43,7 @@
 </style>
   </head>
   <body>
+
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -55,11 +56,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav ml-auto">
-
+                
                 {% if user.is_authenticated %}
                 <!-- Executed when user is logged in. On click The Js code submits the form -->
                 <a href="{% url 'profile' %}"><img class = 'nav-img' src='{{user.profile.image_url}}' width=40 height=40></a>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"> 
                 <a class="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     {{user.first_name}} {{user.last_name}}
                 </a>
@@ -105,7 +106,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
       </div>
     </div>
 
@@ -119,12 +120,50 @@
     </div>
     </header>
 
-<div class="container-fluid">
-    {% block content %}
-    <br>
-    {% endblock %}
-   </div>
+<div class="container " style="background-color:;   max-width:100%">
 
+
+        <div class="row" style="text-align: center;padding-top: 100px">
+            <h1  style="font-size: 70px;font-family:'Barrio', cursive;">Unlocking Knowledge at the speed of thought</h1>
+
+            <div class="col-md justify-content-center"><h2 style="font-family:sarpanch;" class="text-muted" ><br>A Quizzing Platform To Hone Your Skills</h2></div>
+
+        </div>
+
+        <div class="row" style="text-align: center;padding-top: 70px">
+           <div class="col-md justify-content-center" >
+ <button type="submit" class="btn-hover color-10" onclick="window.location.href='{% url 'signup' %}'" >Get started</button>
+        </div>
+            <br>
+
+        </div>
+    <br>
+    <br>
+                <hr class="style-five">
+
+        <div class="row" style="padding-top: 130px;padding-left: 100px">
+            <p class="tab retroshadow" style="font-size: 70px;font-weight:600;color:#273c75;line-height: 1.8">W H A T &nbsp; D O <br> Y O U &nbsp; <span style="color: #eb2f06">K N O W ? ? ?</span></p>
+        </div>
+        <div class="row" style="height: 200px;margin-top: 80px;margin-left: 30px">
+            <div class="col-md-6 rounded shadow-lg headshot headshot-1" style="background-color: #0c2461;padding-top: 50px;padding-left: 30px;border-style: dashed;border-color: white;border-width: thick">
+                <p class="tab" style="font-size: 20px;font-weight: 400; color: white;line-height: 1.8">T A K E &nbsp; P A R T &nbsp; I N &nbsp; Q U I Z &nbsp; A N D &nbsp; S H O W <br> O F F &nbsp; Y O U R &nbsp; S K I L L S</p>
+            </div>
+        </div>
+    <br>
+    <br>
+                        <hr class="style-two">
+        <div class="row" style="padding-top: 130px;padding-left: 200px;text-align: right">
+            <p class="tab hit-the-floor" style="font-size: 70px;font-weight:600;color:#273c75;line-height: 1.8">K N O W -&nbsp; I T - <span style="color: #eb2f06">A L L ? ? ?</span></p>
+        </div>
+        <div class="row" style="height: 200px;margin-top: 80px;margin-left: 30pxs;max-width: 100">
+            <div class="col-md-6 rounded shadow-lg headshot headshot-1" style="background-color: #0c2461;padding-top: 50px;padding-left: 30px;margin-left: 500px;border-style: dashed;border-color: white;border-width: thick;">
+                <p class="tab" style="font-size: 20px;font-weight: 400; color: white;line-height: 1.8;text-shadow: 2px">B E C O M E &nbsp; A &nbsp; Q U I Z &nbsp; M A S T E R &nbsp; A N D <br> H E L P &nbsp; O T H E R S &nbsp; T O &nbsp; E N H A N C E &nbsp; T H E I R &nbsp;<br> S K I L L S</p>
+            </div>
+        </div>
+
+
+
+<div>
     <footer class="text-muted">
         <div class="container text-center">
           <p>&copy; Binary Compatible {% now "Y" %}</p>
@@ -132,7 +171,10 @@
         </div>
       </footer>
 
+</div>
+</div>
 
+      
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

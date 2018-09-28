@@ -6,6 +6,17 @@ from .forms import QuizForm
 from .models import Quiz, Question, Answers
 import os, csv
 from random import shuffle
+from django.core.mail import send_mail
+
+def mail(address, qid, pwd):
+    html_content = '<br><p><b>Quiz Id : {{qid}}</b></p><br><p><b>Quiz Password : {{pwd}}</b></p><br><p>Kindly Share these details to the Quiz Aspirants.</p>'
+    send_mail(
+        'Credentials of Quiz created using QuizOholic',
+        'The credentials for the Quiz you created are as follows: ',
+        'raj.anand.rohit@gmail.com',
+        ['{{address}}'],
+        fail_silently=False,
+    )
 
 def timer(request):
     return render(request,'indexTimer.html')
@@ -13,7 +24,7 @@ def home(request):
     if request.user.is_authenticated:
         return redirect('accounts/dashboard')
     else:
-        return render(request, 'index.html')
+        return render(request, 'home.html')
 
 @login_required(login_url = '/accounts/login')
 def start(request):
@@ -43,7 +54,8 @@ def start_quiz(request):
             return redirect('dashboard')
         else:
             return render(request, 'start')
-
+    else:
+        return redirect('started/quizid')
 
 def quiz_auth(request, quizid):
     item = Quiz.objects.get(Quiz_id=quizid)
@@ -106,8 +118,7 @@ def create(request):
                     ques.d = row[4]
                     ques.correct = row[5]
                     ques.save()
-                # messages.success(request, 'Quiz Successfully created! ')
-                # return redirect('/quiz/test/'+ str(item.id))
+
                 messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start   quizzing!')
                 return redirect( 'dashboard')
         else:

@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
-
+{%load staticfiles %}
 {% block title %}
 Quizzer|Create Quiz
 {% endblock %}
 
 {% block content %}
-<div class="container p-3">
-    <h2 class='text-center'>Create Quiz</h2>
-    <hr>
-    <br>
+<div class="container-fluid">
     {%if error %}
 
         <div class="alert alert-success alert-dismissable">
@@ -18,11 +15,74 @@ Quizzer|Create Quiz
           <button type="button" class="close" data-dismiss="alert" >&times;</button>
         </div>
     {% endif %}
-    <form method="post" enctype="multipart/form-data" action="{% url 'create_quiz'%}">
-        {% csrf_token %}
-        {{ quiz_form.as_p }}
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-</div>
+    <br>
+    <br>
 
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
+                <div class="card border-light ">
+                    <div class="card-header"><h2>Instructions</h2> </div>
+  <div class="card-body">
+
+                <ul class="list">
+
+                    <li class="item">Only Upload CSV files.</li>
+
+                    <li class="item">The CSV files should be in the format specified below:
+                        <br>
+                        Question,Option 1,Option 2,Option 3,Option 4,Correct Answer
+                    </li>
+
+
+                    <li class="item">This Image specifies a sample csv file:
+                        <br><br>
+                        <img src="{% static 'sample.jpeg'%}" alt="Sample Image" class="img-fluid" data-enlargable style="cursor: zoom-in">
+                    </li>
+
+
+                    <li class="item">The First line of each file should be the column-headings. As shown in the sample.
+                    </li>
+
+            </ul>
+            </div>
+                </div>
+            </div>
+            <div class="col-7 card"  style="width: 28rem; padding:28px; margin:auto;">
+                <h2 style="text-align:center;"><u>Create</u></h2>
+                <form method="post" enctype="multipart/form-data" action="{% url 'create_quiz'%}">
+                    {% csrf_token %}
+                    {{ quiz_form.as_p }}
+                    <button type="submit" class="btn-lg btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<script>
+    $('img[data-enlargable]').addClass('img-enlargable').click(function(){
+    var src = $(this).attr('src');
+    $('<div>').css({
+        background: 'RGBA(0,0,0,.5) url('+src+') no-repeat center',
+        backgroundSize: 'contain',
+        width:'100%', height:'100%',
+        position:'fixed',
+        zIndex:'10000',
+        top:'0', left:'0',
+        cursor: 'zoom-out'
+    }).click(function(){
+        $(this).remove();
+    }).appendTo('body');
+});
+</script>
+<style>
+    .list{
+        list-style-type: square;
+    }
+    .item{
+        margin: 15px 0;
+        padding: 5px;
+    }
+</style>
 {% endblock %}

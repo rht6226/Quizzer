@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jquery',
+'password_reset',
 
 ]
 
@@ -80,11 +81,11 @@ WSGI_APPLICATION = 'Quizzer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'quizmain.db',
+        'NAME': 'Quizzer Pro',
         'USER': 'postgres',
-        'PASSWORD': '8520',
+        'PASSWORD': 'lodulodu',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
