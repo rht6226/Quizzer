@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
-from .models import Quiz, Question, Answers
+from .models import Quiz, Question, Answers, Score
 import os, csv
 from random import shuffle
 from django.core.mail import send_mail
@@ -140,7 +140,6 @@ def create_answer_table(quiz_object, question_objects, user_object):
 
 @login_required(login_url = '/accounts/login')
 def score(request, quizid):
-    del request.session['username']
     aspirant = request.user
     item = get_object_or_404(Quiz, Quiz_id=quizid)
     answers = Answers.objects.filter(quiz = item, applicant=aspirant)
@@ -164,6 +163,15 @@ def score(request, quizid):
                 marks = marks - item.negative
         list_object.append(dicty)
         total_marks = (item.positive) * len(list_object)
+    try:
+        score_data = get_object_or_404(Score, applicant=aspirant, quiz=item)
+    except:
+        score_data = Score()
+    score_data.applicant = aspirant
+    score_data.quiz = item
+    score_data.obtained = marks
+    score_data.total = total_marks
+    score_data.save()
     return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
 
 

@@ -5,6 +5,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ProfileForm
 from .models import Profile
+from quiz.models import Score
 import os
 
 
@@ -55,7 +56,8 @@ def update_profile(request):
 
 @login_required(login_url = '/accounts/login')
 def profile(request):
-    return render(request, 'userprofile.html')
+    data = Score.objects.filter(applicant= request.user)
+    return render(request, 'userprofile.html', {'scores': data})
 
 def login(request):
     if request.method == 'POST':

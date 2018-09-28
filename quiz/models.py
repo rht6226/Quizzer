@@ -38,3 +38,13 @@ class Answers(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     response = models.CharField(max_length=500, default='')
     correct_choice = models.CharField(max_length=500)
+
+class Score(models.Model):
+    applicant = models.ForeignKey(User, on_delete= models.CASCADE ) 
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
+    obtained = models.IntegerField(default=0)
+    total = models.IntegerField(default= 0)
+
+    def __str__(self):
+        title = self.applicant.username + '-' + self.quiz.name
+        return title
