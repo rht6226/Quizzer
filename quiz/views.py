@@ -120,7 +120,7 @@ def create(request):
                     ques.save()
                 messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start   quizzing!')
                 # mail(request.user.email, item.Quiz_id, item.Test_Password)
-                return redirect( 'dashboard')
+                return redirect('/quiz/test/edit/'+ item.quiz_id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -140,6 +140,7 @@ def create_answer_table(quiz_object, question_objects, user_object):
 
 @login_required(login_url = '/accounts/login')
 def score(request, quizid):
+    del request.session['username']
     aspirant = request.user
     item = get_object_or_404(Quiz, Quiz_id=quizid)
     answers = Answers.objects.filter(quiz = item, applicant=aspirant)
@@ -190,3 +191,18 @@ def conduct_quiz(request, quizid):
                 shuffle(querys)
 
         return render(request, 'Quiz1.html', {'quiz_object': item, 'quiz_data': querys, 'user':aspirant})
+
+@login_required(login_url = '/accounts/login')
+def edit_quiz(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, Quiz_id=quizid)
+    data = Question.objects.filter(quiz = item)
+    if request.method == 'POST':
+        ques = get_object_or_404(Question, id=request.POST.get('question_id'))
+        ques.image = request.POST.get('img')
+        ques.code = request.POST.get('code')
+        ques.save()
+    querys = []
+    for thing in data:
+        querys.append(thing)        
+    return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys})

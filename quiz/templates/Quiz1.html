@@ -54,6 +54,18 @@
                 <div id="back_{{ obj.id }}">
             <ul class="list-group" style="display:none;" id="{{ obj.id }}" >
                 <li class="list-group-item">{{obj.question}}</li>
+                {%if obj.image %}
+                <li class="list-group-item d-flex justify-content-center" >
+                    <img src="{{obj.image}}" class="img-fluid col-9">
+                </li>
+                {% endif %}
+                {%if obj.code %}
+                <li class="list-group-item">
+                    <code class="col-4">
+                        {{obj.code}}
+                    </code>
+                </li>
+                {% endif %}
                 <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}" name="{{obj.id}}">
                     {% csrf_token %}
                 <input type="hidden"  value="{{obj.id}}" name="question_{{obj.id}}">
