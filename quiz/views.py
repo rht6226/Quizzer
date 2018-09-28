@@ -197,12 +197,17 @@ def edit_quiz(request, quizid):
     aspirant = request.user
     item = get_object_or_404(Quiz, Quiz_id=quizid)
     data = Question.objects.filter(quiz = item)
+    error = ''
     if request.method == 'POST':
-        ques = get_object_or_404(Question, id=request.POST.get('question_id'))
-        ques.image = request.POST.get('img')
-        ques.code = request.POST.get('code')
-        ques.save()
+        if aspirant == item.quizmaster:
+            ques = get_object_or_404(Question, id=request.POST.get('question_id'))
+            ques.image = request.POST.get('img')
+            ques.code = request.POST.get('code')
+            ques.save()
+        else:
+            error = 'You do not have the required Permissions.'
     querys = []
     for thing in data:
-        querys.append(thing)        
-    return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys})
+        querys.append(thing) 
+    print(error)       
+    return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys, 'problem': error,})

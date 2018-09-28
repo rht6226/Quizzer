@@ -67,7 +67,6 @@
         <ol>
         {% for obj in quiz_data%}
         <br>
-        <div id="results"></div>
         <ul class="list-group">
             <li class="list-group-item">{{obj.question}}</li>
             <form method="POST" enctype="multipart/form-data" action="{% url 'testedit' quizid=quiz_object.Quiz_id %}" name="{{obj.id}}">
@@ -76,10 +75,10 @@
             <li class="list-group-item">
             <p> 
                 <label for="img">Image URL :</label>
-                <input class="form-control" type="url" name='img_{{obj.id}}' placeholder="Enter the Url If you want an image for this question"> </p>
+                <input class="form-control" type="url" value="{{obj.image}}" name='img_{{obj.id}}' placeholder="Enter the Url If you want an image for this question"> </p>
             <p>
                 <label for="code">Code If any :</label>
-                    <input type="text" class="form-control -p3" placeholder="Enter Your code here if the need arises!" name="code_{{obj.id}}">
+                    <input type="text" class="form-control -p3" placeholder="Enter Your code here if the need arises!" value="{{obj.code}}" name="code_{{obj.id}}">
                 <br>
             </p>
             </li>
@@ -102,6 +101,15 @@
     </form>
 </div>
 {% endif %}
+
+<footer class="text-muted">
+    <br><br>
+        <div class="container text-center">
+          <p>&copy; Binary Compatible {% now "Y" %}</p>
+          <br>
+        </div>
+</footer>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>
         $(function() {
