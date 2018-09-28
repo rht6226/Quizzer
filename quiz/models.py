@@ -48,3 +48,7 @@ class Score(models.Model):
     def __str__(self):
         title = self.applicant.username + '-' + self.quiz.name
         return title
+
+    def percentage(self):
+        per = self.obtained*100/self.total
+        return per

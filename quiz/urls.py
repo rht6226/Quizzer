@@ -12,4 +12,5 @@ urlpatterns = [
     path('start_quiz', views.start_quiz, name='start_quiz'),
     path('timer',views.timer,name='timer'),
     path('start_quiz/<slug:quizid>', views.quiz_auth, name='quiz_auth'),
+    path('admin', views.quizadmin, name='admin-panel')
     ]

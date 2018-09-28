@@ -6,7 +6,6 @@ from .forms import QuizForm
 from .models import Quiz, Question, Answers, Score
 import os, csv
 from random import shuffle
-from django.core.mail import send_mail
 
 
 def timer(request):
@@ -69,15 +68,6 @@ def clean(f):
         data.append(list2)
     return data
 
-def mail(address, qid, pwd):
-    html_content = '<br><p><b>Quiz Id : {{qid}}</b></p><br><p><b>Quiz Password : {{pwd}}</b></p><br><p>Kindly Share these details to the Quiz Aspirants.</p>'
-    send_mail(
-        'Credentials of Quiz created using QuizOholic',
-        'The credentials for the Quiz you created are as follows: ',
-        'raj.anand.rohit@gmail.com',
-        ['{{address}}'],
-        fail_silently=False,
-    )
 
 @login_required(login_url = '/accounts/login')
 def create(request):
@@ -120,7 +110,7 @@ def create(request):
                     ques.save()
                 messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start   quizzing!')
                 # mail(request.user.email, item.Quiz_id, item.Test_Password)
-                return redirect('/quiz/test/edit/'+ item.quiz_id)
+                return redirect('/quiz/test/edit/'+ item.Quiz_id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -219,3 +209,14 @@ def edit_quiz(request, quizid):
         querys.append(thing) 
     print(error)       
     return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys, 'problem': error,})
+
+@login_required(login_url = '/accounts/login')
+def quizadmin(request):
+    user = request.user
+    quiz_objects = Quiz.objects.filter(quizmaster= user)
+    scores = []
+    for quiz_object in quiz_objects:
+        quiz_score = Score.objects.filter(quiz=quiz_object)
+        print(quiz_score)
+        scores.append(quiz_score)
+    return render(request, 'quizadmin.html', {'user': user, 'quiz_objects': quiz_objects, 'scores': scores})
