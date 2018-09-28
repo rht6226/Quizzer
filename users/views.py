@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ProfileForm
-from quiz.models import Quiz
+from quiz.models import Quiz,Score
 from .models import Profile
 import os
 
@@ -31,6 +31,8 @@ def signup(request):
                                                    password=request.POST['password1'], email=request.POST['email'], )
                    auth.login(request, user)
                    return redirect('edit_profile')
+        else:
+            return render(request, 'signup.html', {'error2': 'Passwords do not match!'})
 
     else:
         #If request is get
@@ -62,7 +64,8 @@ def update_profile(request):
 
 @login_required(login_url = '/accounts/login')
 def profile(request):
-    return render(request, 'userprofile.html')
+    data = Score.objects.filter(applicant=request.user)
+    return render(request, 'userprofile.html', {'scores': data})
 
 def login(request):
     if request.method == 'POST':

@@ -28,30 +28,45 @@
         </div>
         <div class="container-fluid" style="background-color: #f1f2f6">
             <div class="row" style="padding-top: 12px padding-left:7px">
-                <div class="col-md-4 " style="padding-top: 15px;"><h4><u>{{quiz_object.name}}</u></h4></div>
+                <div class="col-md-4 " style="padding-top:15px; font-family:Cabin Sketch; "><h2 style="padding-left:20px;"><u>{{quiz_object.name}}</u></h2></div>
                 <div class="col-md-8 float-right">
                <form name="quiz" action="{% url 'calculate_score' quizid=quiz_object.Quiz_id %}" method="POST">
             {% csrf_token %}  <button type="submit" class="btn-hover color-10 float-right" >End Test</button>
                </form> </div>
             </div>
-            <div class="row justify-content-center" style="padding-left: 0px;margin-top: 10px;">
+
+
+            <div class="row justify-content-center" style="padding-left: 0px;">
                 <div class="col-md-2 card border-right-0 " style="border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions">
 
 
       {% if user.is_authenticated %}
-        <div class="container p-2">
+
 
             <ol>
             {% for obj in quiz_data%}
             <br>
+               <li>
+                <a href="#" style="color:grey; margin:0px;"  onclick="quesFetch({{ obj.id }})">{{obj.question|truncatechars:50}}</a>
+               </li>
 
-                <a href="#" class="link"  onclick="quesFetch({{ obj.id }})">{{obj.question}}</a>
-                                <br>
 
-                                <br>
+
                 <div id="back_{{ obj.id }}">
-            <ul class="list-group" style="display:none;" id="{{ obj.id }}" >
+            <ul class="list-group" style="display:none; padding-top:20px;" id="{{ obj.id }}" >
                 <li class="list-group-item">{{obj.question}}</li>
+                     {%if obj.image %}
+                <li class="list-group-item d-flex justify-content-center" >
+                    <img src="{{obj.image}}" class="img-fluid col-9">
+                </li>
+                {% endif %}
+                {%if obj.code %}
+                <li class="list-group-item">
+                    <code class="col-4">
+                        {{obj.code}}
+                    </code>
+                </li>
+                {% endif %}
                 <form method="POST" action="{% url 'test' quizid=quiz_object.Quiz_id %}" name="{{obj.id}}">
                     {% csrf_token %}
                 <input type="hidden"  value="{{obj.id}}" name="question_{{obj.id}}">
@@ -71,24 +86,18 @@
                     <input class="col-1" type="radio" value="{{obj.d}}" id="optionD" name="response_{{obj.id}}">
                     <span class='col-11'>{{obj.d}}</span>
                 </li>
-                <li class="list-group-item">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <li class="list-group-item" id="recorded_{{obj.id}}" >
+                    <button type="submit" class="btn btn-primary">Submit </button><span></span>
                 </li>
                 </form>
             </ul>
                 </div>
             <br>
             {% endfor %}
-            </ol>
-        </div>
+
+
         <br>
-        <div class="container text-center">
-        <form action="{% url 'calculate_score' quizid=quiz_object.Quiz_id %}" method="POST">
-            {% csrf_token %}
-        <button class="btn btn-primary btn-lg" type="submit">End Test</button>
-        </form>
-        </div>
-        <br><br>
+
     {% endif %}
 
 
@@ -107,7 +116,10 @@
 
 
     </body>
+<script>
 
+
+</script>
     <!--Question fetch-->
 
                         <script>
@@ -217,6 +229,7 @@ function quesFetch(id) {
                 console.log(res);
                 $('input[name="response"]:checked').val('');
                 console.log("success is yours Mylord");
+                $('#recorded_'+quid).html("<button type='submit' class='btn btn-success'>Submit </button><span style='padding-left:50px'> <strong>  &#x2714 Response Recorded</strong></span>");
             },
 
             error : function(xhr,errmsg,err) {

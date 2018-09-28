@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
+{% block title %}
+{{quiz_object.name}}
+{% endblock %}
 {% block content %}
 
 <div class="container">
+    <div class="row">
+        <div class="col-6"><h2> <u>{{ quiz_object.name }}</u></h2></div>
+    <div class="col-6">
+<h2 style="float:right;"><u>Quizmaster</u>: {{ quiz_object.quizmaster }}</h2></div></div>
+    <br>
 <div class="row">
     <div class="col-md-7">
         <div class="container">
-<h2><u>Quizmaster</u>: {{ quiz_object.quizmaster }}</h2>
+
     <div class="card bg-light mb-3">
   <div class="card-header">About</div>
   <div class="card-body">

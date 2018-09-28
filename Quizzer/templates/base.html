@@ -7,7 +7,7 @@
     <meta name="description" content="Product hunt clone: For development and practice purposes only">
     <meta name="author" content="Rohit Anand">
           <!--<link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">-->
-        <!--<link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">-->
+        <!--<link href="https://fonts.googleapis.com/css?family=Crete+Round|Monoton" rel="stylesheet">-->
     <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
           <link rel="stylesheet" href="{% static 'base1.css' %}">
@@ -32,7 +32,7 @@
   text-align: left;
   padding-top: 5px;
   font-size:1.8rem;
-  font-family: 'Monoton', cursive;
+font-family: 'Monoton', cursive;
   color: #f5f6fa"
 }
   .fplink
@@ -67,6 +67,7 @@
                     <a class="dropdown-item nav-link nav-item" href="{% url 'profile' %}">Profile</a>
 
                     <a class="dropdown-item nav-link nav-item" href="{% url 'dashboard' %}">Dashboard</a>
+                     <a class="dropdown-item nav-link nav-item" href="{% url 'admin-panel' %}">Admin Panel</a>
 
                     <a class="dropdown-item nav-link nav-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                     <a class="dropdown-item nav-link nav-item" href="javascript:{document.getElementById('logout').submit()}">Log Out</a>

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
-from .models import Quiz, Question, Answers
+from .models import Quiz, Question, Answers,Score
 import os, csv
 from random import shuffle
 from django.core.mail import send_mail
@@ -61,6 +61,7 @@ def quiz_auth(request, quizid):
     item = Quiz.objects.get(Quiz_id=quizid)
     if item.Test_Password == request.POST['password']:
         request.session['username'] = quizid
+
         return redirect('test/'+ str(quizid))
     else:
 
@@ -120,7 +121,7 @@ def create(request):
                     ques.save()
 
                 messages.info(request,'Your Quiz has been submitted successfully. Share the credentials and start   quizzing!')
-                return redirect( 'dashboard')
+                return redirect('/quiz/test/edit/' + item.Quiz_id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -137,10 +138,11 @@ def create_answer_table(quiz_object, question_objects, user_object):
         ans.correct_choice = question_object.correct
         ans.save()
     return
-
 @login_required(login_url = '/accounts/login')
 def score(request, quizid):
+    del request.session['username']
     aspirant = request.user
+
     item = get_object_or_404(Quiz, Quiz_id=quizid)
     answers = Answers.objects.filter(quiz = item, applicant=aspirant)
     list_object = []
@@ -163,8 +165,16 @@ def score(request, quizid):
                 marks = marks - item.negative
         list_object.append(dicty)
         total_marks = (item.positive) * len(list_object)
+    try:
+        score_data = get_object_or_404(Score, applicant=aspirant, quiz=item)
+    except:
+        score_data = Score()
+    score_data.applicant = aspirant
+    score_data.quiz = item
+    score_data.obtained = marks
+    score_data.total = total_marks
+    score_data.save()
     return render(request, 'score.html', {'quiz_object': item, 'score': marks, 'data': list_object, 'max': total_marks})
-
 
 @login_required(login_url = '/accounts/login')
 def conduct_quiz(request, quizid):
@@ -190,3 +200,32 @@ def conduct_quiz(request, quizid):
                 shuffle(querys)
 
         return render(request, 'Quiz1.html', {'quiz_object': item, 'quiz_data': querys, 'user':aspirant})
+@login_required(login_url = '/accounts/login')
+def edit_quiz(request, quizid):
+    aspirant = request.user
+    item = get_object_or_404(Quiz, Quiz_id=quizid)
+    data = Question.objects.filter(quiz = item)
+    if request.method == 'POST':
+        if aspirant == item.quizmaster:
+            ques = get_object_or_404(Question, id=request.POST.get('question_id'))
+            ques.image = request.POST.get('img')
+            ques.code = request.POST.get('code')
+            ques.save()
+        else:
+            error = 'You do not have the required Permissions.'
+    querys = []
+    for thing in data:
+        querys.append(thing)
+    # if error:
+    #    print(error)
+    return render(request, 'editquiz.html', {'quiz_object': item, 'quiz_data': querys })
+@login_required(login_url = '/accounts/login')
+def quizadmin(request):
+    user = request.user
+    quiz_objects = Quiz.objects.filter(quizmaster= user)
+    scores = []
+    for quiz_object in quiz_objects:
+        quiz_score = Score.objects.filter(quiz=quiz_object)
+        print(quiz_score)
+        scores.append(quiz_score)
+    return render(request, 'quizadmin.html', {'user': user, 'quiz_objects': quiz_objects, 'scores': scores})

@@ -26,14 +26,28 @@ class Question(models.Model):
     c = models.CharField(max_length= 500)
     d = models.CharField(max_length= 500)
     correct = models.CharField(max_length= 500)
-
+    image = models.URLField(default="")
+    code = models.TextField(max_length=500, blank=True)
     def __str__(self):
         title = self.question[:40]
         return title
 
 class Answers(models.Model):
+
     applicant = models.ForeignKey(User, on_delete= models.CASCADE ) 
     quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
     question = models.ForeignKey('Question', on_delete=models.CASCADE)
     response = models.CharField(max_length=500, default='')
     correct_choice = models.CharField(max_length=500)
+class Score(models.Model):
+    applicant = models.ForeignKey(User, on_delete= models.CASCADE )
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
+    obtained = models.IntegerField(default=0)
+    total = models.IntegerField(default= 0)
+    def __str__(self):
+        title = self.applicant.username + '-' + self.quiz.name
+        return title
+
+    def percentage(self):
+        per = self.obtained * 100 / self.total
+        return per
