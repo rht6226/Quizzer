@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" oncontextmenu="return false" onkeydown="return false;" onmousedown="return false">
+<html lang="en"  id="full" oncontextmenu="return false" onkeydown="return false;" onmousedown="return false">
 {% load staticfiles %}
 {% if user.is_authenticated %}
     <head>
@@ -14,9 +14,11 @@
          <link rel="stylesheet" href="{% static 'quiz.css' %}">
         <title>QuizOholic</title>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     </head>
-    <body>
-     <div class="container-fluid " style="background-color:#5042f4;max-width: 100%;height: 50px">
+    <body >
+     <div class="container-fluid " style="background-color:#5042f4;max-width: 100%;height: 50px" id="nav">
             <div class="row justify-content-around" >
                 <div class="col-md-6" style="text-align: left;padding-top: 3px;font-size:2rem;font-family: 'Monoton', cursive;color: #f5f6fa"> QuizOholic</div>
                 <!--for cookies-->
@@ -26,33 +28,35 @@
                 <div class="col-md-5"  style="padding-top: 3px;padding-left: 350px; font-size:2rem;color: #f5f6fa;font-family: 'Cabin sketch', cursive; ">Time : <span id='timer' style="padding:2px;border-style: solid;border-color: whitesmoke; border-radius:12px;">{{ quiz_object.duration }}</span></div>
             </div>
         </div>
-        <div class="container-fluid" style="background-color: #f1f2f6">
+        <div class="container-fluid" style="background-color: #f1f2f6 " id="sec_nav">
             <div class="row" style="padding-top: 12px padding-left:7px">
                 <div class="col-md-4 " style="padding-top:15px; font-family:Cabin Sketch; "><h2 style="padding-left:20px;"><u>{{quiz_object.name}}</u></h2></div>
                 <div class="col-md-8 float-right">
                <form name="quiz" action="{% url 'calculate_score' quizid=quiz_object.Quiz_id %}" method="POST">
-            {% csrf_token %}  <button type="submit" class="btn-hover color-10 float-right" >End Test</button>
+            {% csrf_token %}  <button type="submit" class="btn-hover color-10 float-right" id="endtest" >End Test</button>
                </form> </div>
             </div>
 
-
-            <div class="row justify-content-center" style="padding-left: 0px;">
-                <div class="col-md-2 card border-right-0 " style="border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions">
+            <div class="row" id="see" style="position:absolute; z-index:3; margin-top:150px;"> <button onclick="fullscr()" id="fullscreen" class="btn-hover color-6"> Click to See </button></div>
+            <div class="row justify-content-center" style="position:relative; filter: blur(5px); padding-left: 0px; " id="ques_list">
+                <div class="col-md-2 card border-right-0 txt" style="color:grey; border-style:double ;border-color: #7f8fa6;border-radius:10px; height: 32em;width: auto;overflow-y: auto" id="questions">
 
 
       {% if user.is_authenticated %}
 
 
-            <ol>
+            <ol id="ques_font">
+
             {% for obj in quiz_data%}
             <br>
+
                <li>
-                <a href="#" style="color:grey; margin:0px;"  onclick="quesFetch({{ obj.id }})">{{obj.question|truncatechars:50}}</a>
+                <a href="#"  style=" margin:0px;"  onclick="quesFetch({{ obj.id }})">{{obj.question|truncatechars:50}}</a>
                </li>
 
 
 
-                <div id="back_{{ obj.id }}">
+                <div id="back_{{ obj.id }}" >
             <ul class="list-group" style="display:none; padding-top:20px;" id="{{ obj.id }}" >
                 <li class="list-group-item">{{obj.question}}</li>
                      {%if obj.image %}
@@ -104,7 +108,7 @@
 
                 </div>
 
-                <div class="col-md-10" style="border-style: double;border-color: #7f8fa6;border-width: 3px;background-color: white;border-radius: 10px;">
+                <div class="col-md-10" id="content_parent" style="border-style: double;border-color: #7f8fa6;border-width: 3px;background-color: white;border-radius: 10px;" id="questions_main">
                     <div class="container center-block" id="content" style="max-width: 100%;background-color: white;">
 
 
@@ -112,12 +116,106 @@
 
                     </div>
                 </div>
+
+
             </div>
+                <div class="container-fluid" style="margin-top:4px;">
+          <div class="dropdown" style="float:right;">
+              <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Theme
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" onclick="light()">Light</a>
+                <a class="dropdown-item" href="#" onclick="dark()">Dark</a>
+              </div>
+            </div>
+                        </div>
 
 
     </body>
 <script>
+    function light()
+    {
+      var nav = document.getElementById("nav");
+      nav.setAttribute("style","background-color:#5042f4;max-width: 100%;height: 50px");
+      var sec_nav=document.getElementById("sec_nav");
+          sec_nav.setAttribute("style","background-color:#f1f2f6");
+      var ques_bar = document.getElementById("questions");
+      ques_bar.setAttribute("style"," height:40em;background-color:white; border-style:double ;border-color: #7f8fa6;border-radius:10px;width: auto;overflow-y: auto");
+      var ques_font=document.getElementById("ques_font");
+      ques_font.setAttribute("style","color:grey;");
+      var content = document.getElementById("content_parent");
+          content.setAttribute("style","border-style: double;border-color: #7f8fa6;border-width: 3px;background-color:white;border-radius: 10px;");
+    }
+        function dark()
+    {
+      var nav = document.getElementById("nav");
+          nav.setAttribute("style","background-color:black;max-width: 100%;height: 50px");
+       var sec_nav=document.getElementById("sec_nav");
+          sec_nav.setAttribute("style","background-color:#D3D3D3");
+      var ques_bar = document.getElementById("questions");
+          ques_bar.setAttribute("style","height:40em;color:yellow; background-color:black; border-style:double ;border-color:white;border-radius:10px;width: auto;overflow-y: auto");
+      var content = document.getElementById("content_parent");
+          content.setAttribute("style","border-style: double;border-color:#f4d942;border-width: 3px;background-color: black;border-radius: 10px;");
+      var ques_font=document.getElementById("ques_font");
+          ques_font.setAttribute("style","color:white;");
+    }
 
+</script>
+
+<script>
+<!--window.onbeforeunload = function () {-->
+
+<!--//Prevent Ctrl+W-->
+
+<!--};-->
+//Exits the test upon closing fulscreen
+if (document.addEventListener)
+{
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+}
+function exitHandler()
+{
+    if (document.webkitIsFullScreen === false)
+    {
+      document.getElementById("endtest").click();
+
+    }
+    else if (document.mozFullScreen === false)
+    {
+      document.getElementById("endtest").click();
+          }
+    else if (document.msFullscreenElement === false)
+    {
+      document.getElementById("endtest").click();
+    }
+}
+
+//start Fulscreen
+function fullscr() {
+   var ques_list =  document.getElementById("ques_list");
+   ques_list.setAttribute("style","filter: blur(0px);");
+     var element = document.getElementById("see");
+    element.parentNode.removeChild(element);
+          var ques_bar=document.getElementById("questions");
+ ques_bar.setAttribute("style"," height:40em;background-color:white; border-style:double ;border-color: #7f8fa6;border-radius:10px;width: auto;overflow-y: auto");
+
+
+
+ var element = document.getElementById("full");
+ console.log(element);
+
+if (element.mozRequestFullScreen) {
+
+       element.mozRequestFullScreen();
+
+} else if (element.webkitRequestFullScreen) {
+
+  element.webkitRequestFullScreen();}
+   }
 
 </script>
     <!--Question fetch-->
