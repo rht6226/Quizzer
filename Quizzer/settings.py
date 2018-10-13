@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'Quizzer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Quizzer Pro',
+        'NAME': 'quizzer',
         'USER': 'postgres',
-        'PASSWORD': 'lodulodu',
+        'PASSWORD': '8520',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 

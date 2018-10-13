@@ -75,7 +75,7 @@
                 <input class="form-control" type="url" value="{{obj.image}}" name='img_{{obj.id}}' placeholder="Enter the Url If you want an image for this question"> </p>
             <p>
                 <label for="code">Code If any :</label>
-                   <input type="text" class="form-control -p3" placeholder="Enter Your code here if the need arises!" value="{{obj.code}}" name="code_{{obj.id}}">
+                   <textarea class="form-control -p3" placeholder="Enter Your code here if the need arises!" value="{{obj.code}}" name="code_{{obj.id}}"> </textarea>
                 <br>
             </p>
             </li>
@@ -166,7 +166,7 @@
             console.log("form submitted!")
             var quid = $('input[name="question_{{obj.id}}"]').val();
             var res = $('input[name="img_{{obj.id}}"]').val();
-            var cde = $('input[name="code_{{obj.id}}"]').val();
+            var cde = $('textarea[name="code_{{obj.id}}"]').val();
             submit(quid, res, cde);
         });
         {% endfor %}
