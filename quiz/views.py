@@ -225,7 +225,12 @@ def quizadmin(request):
     quiz_objects = Quiz.objects.filter(quizmaster= user)
     scores = []
     for quiz_object in quiz_objects:
-        quiz_score = Score.objects.filter(quiz=quiz_object)
+        quiz_score = Score.objects.filter(quiz=quiz_object).order_by('-obtained')
         print(quiz_score)
         scores.append(quiz_score)
     return render(request, 'quizadmin.html', {'user': user, 'quiz_objects': quiz_objects, 'scores': scores})
+
+def leaderboard(request, quizid):
+    quiz_object = get_object_or_404(Quiz, Quiz_id = quizid)
+    score = Score.objects.filter(quiz=quiz_object).order_by('-obtained')
+    return render(request,'leaderboard.html', {'quiz_object': quiz_object, 'scores': score})

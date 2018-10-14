@@ -3,9 +3,19 @@
 Admin | {{user.username}}
 {% endblock %}
 {% block content %}
+<style>
+    .box:hover{
+        box-shadow: -5px -8px 25px 3px black;
+        border-radius: 0 25px 0 25px;
+    }
+    .box{
+        box-shadow: -1px -2px 5px 0 black;
+        border-radius: 15px 0 15px 0;
+    }
+</style>
 {% if user.is_authenticated %}
 <div class="container-fluid row justify-content-between">
-    <div class="col-2 border-right">
+    <div class="col-2 border-right" id="sidebar">
         <div class="row justify-content-center">
             <br>
             <img src="{{user.profile.image_url}}" height="200" style="width:auto; border-radius:50%; margin:15px 0;">
@@ -15,10 +25,10 @@ Admin | {{user.username}}
         </div>
         <br>
         <div class="row justify-content-center">
-                <div class="col-4">
+                <div class="col-3">
                     <b>Email:</b>
                 </div>
-                <div class="col-8">
+                <div class="col-9">
                     {{user.email}}
                 </div>
         </div>
@@ -44,7 +54,7 @@ Admin | {{user.username}}
     <div class="col-9">
         {% for quiz_object in quiz_objects %}
         <br>
-        <div class="row border border-rounded" style="padding:15px;">
+        <div class="row border border-rounded box" style="padding:15px;">
             <div class="row col-12 p-3 justify-content-between">
                 <h3>{{quiz_object.name}}</h3>
                 <a href="{% url 'testedit' quizid=quiz_object.Quiz_id %}" class="btn btn-info" role="button">Edit</a>
@@ -64,7 +74,7 @@ Admin | {{user.username}}
                     </thead>
                     <tbody>
                     {% for item in scores %}
-                    {% for score in item %}
+                    {% for score in item|slice:":3" %}
                     {% if score.quiz == quiz_object %}
                         <tr>
                             <th scope="row">{{score.applicant.first_name}} {{score.applicant.last_name}}</th>
@@ -78,9 +88,13 @@ Admin | {{user.username}}
                     </tbody>
                 </table>
             </div>
+            <div class="col-8 justify-content-end">
+                <a href="{% url 'leaderboard' quizid=quiz_object.Quiz_id %}" class="btn btn-danger" role="button">See Full Result</a> 
+            </div>
         </div>
         {% endfor %}
     </div>
 </div>
+<br><br>
 {% endif %}
 {% endblock %}
