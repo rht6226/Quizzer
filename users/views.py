@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.db import transaction
@@ -98,4 +98,7 @@ def dash(request):
         querys.append(thing)
     return render(request, 'dashboard.html', {'quiz_object': querys})
     
-    
+def public_profile(request, username):
+    user = get_object_or_404(User, username = username)
+    data = Score.objects.filter(applicant=user)
+    return render(request, 'publicprofile.html', {'person': user, 'scores': data})

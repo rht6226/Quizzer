@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+Quizzer|Profile
+{% endblock %}
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+         ['Quiz_Name', 'Obtained','Total'],
+        {% for score in scores %}
+
+
+
+          ["{{score.quiz.name}}",{{score.obtained}},{{score.total}}],
+
+          {% endfor %}
+        ]);
+
+        var options = {
+          width: 800,
+          legend: { position: 'none' },
+          chart: {
+             },
+          axes: {
+          x: {
+              0: { side: 'top', label: 'Quiz_name'} // Top x-axis.
+            }
+
+          },
+          bar: { groupWidth: "90%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
+    </script>
+
+<div class="container-fluid row justify-content-between">
+    <div class="col-3 border-right">
+        <div class="row justify-content-center">
+            <br>
+            <img src="{{person.profile.image_url}}" class="img-circle" height="200" style="width:auto; border-radius:50%; margin:10px 0;">
+        </div>
+        <div class="row justify-content-center">
+                <h4>{{person.first_name}} {{person.last_name}}</h4>
+        </div>
+        <br>
+                     <div class="card bg-light mb-3">
+                         <div class="card-header"><b>About</b></div>
+                <div class="card-body">
+
+                <p class="card-text">{{ person.profile.bio|linebreaks }}</p>
+                </div>
+                </div>
+        <div class="row justify-content-center">
+                <div class="col-4">
+                    <b>Email:</b>
+                </div>
+                <div class="col-8">
+                    {{person.email}}
+                </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+                <div class="col-5">
+                    <b>D.O.B. :</b>
+                </div>
+                <div class="col-7">
+                    {{person.profile.DOB}}
+                </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+                <div class="col-5">
+                    <b>College : </b>
+                </div>
+                <div class="col-7">
+                    {{person.profile.college}}
+                </div>
+        </div>
+        <div class="row">
+
+            </div>
+    </div>
+    <div class="col-8">
+                <h2 class="text-center display-2 m-2">Analysis</h2>
+ <div id="top_x_div" class="text-center" style="width: 800px; height: 600px;"></div>
+    </div>
+</div>
+{% endblock %}
