@@ -15,6 +15,10 @@ Leaderboard | {{quiz_object.Quiz_id}}
 </style>
 {% if user.is_authenticated %}
 <br><br>
+<div class="col-8 justify-content-end">
+        <a href="{% url 'export' quizid=quiz_object.Quiz_id %}" class="btn btn-danger" role="button">Expot CSV</a> 
+</div>
+<br>
 <div class="container box">
 <div class="row" style="padding:15px;">
     <div class="row col-12 p-3 text-center">

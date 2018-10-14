@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
@@ -234,3 +235,30 @@ def leaderboard(request, quizid):
     quiz_object = get_object_or_404(Quiz, Quiz_id = quizid)
     score = Score.objects.filter(quiz=quiz_object).order_by('-obtained')
     return render(request,'leaderboard.html', {'quiz_object': quiz_object, 'scores': score})
+
+def export(request, quizid):
+    user = request.user
+    quiz_object = get_object_or_404(Quiz, Quiz_id = quizid)
+    if user == quiz_object.quizmaster:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="result.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['username','First name','Last name','Email address','Marks Obtained','Maximum Marks'])
+        scores = Score.objects.filter(quiz=quiz_object).order_by('-obtained')
+        result = list()
+        for score in scores:
+            user = score.applicant
+            username = user.username
+            firstname = user.first_name
+            last_name = user.last_name
+            email = user.email
+            obtnd = score.obtained
+            total = score.total
+            percentage = score.percentage
+            tup = (username,firstname,last_name,email,obtnd,total)
+            result.append(tup)
+        for score in result:
+            writer.writerow(score)
+        return response
+    else:
+        return HttpResponse("You do not have the authorization")

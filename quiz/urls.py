@@ -14,4 +14,5 @@ urlpatterns = [
     path('start_quiz/<slug:quizid>', views.quiz_auth, name='quiz_auth'),
     path('admin', views.quizadmin, name='admin-panel'),
     path('test/leaderboard/<slug:quizid>', views.leaderboard, name='leaderboard'),
+    path('test/export/<slug:quizid>', views.export, name = 'export')
     ]
