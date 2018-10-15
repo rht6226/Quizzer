@@ -14,7 +14,6 @@ def search(request):
         q = request.GET['search']
         print(q)
         quiz= Quiz.objects.filter(name__icontains=q)
-        #icontains is for case sensitive search
         return render(request,'dashboard.html', {'quiz_object':quiz})
     except:
         messages.error(request, 'Quiz does not exists!')

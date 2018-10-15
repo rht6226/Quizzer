@@ -5,6 +5,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm, ProfileForm
 from quiz.models import Quiz,Score
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Profile
 import os
 
@@ -73,10 +74,15 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             item=Quiz.objects.all().order_by('name')
-            #
-            # querys = []
-            # for thing in item:
-            #     querys.append(thing)
+            paginator = Paginator(item, 5)  # Show 1o quizzes per page
+            page = request.GET.get('page', 1)
+            try:
+                item = paginator.get_page(page)
+            except PageNotAnInteger:
+                item = paginator.get_page(1)
+            except EmptyPage:
+                item = paginator.get_page(paginator.num_pages)
+
             return render(request,'dashboard.html',{'quiz_object':item})
         else:
             return render(request, 'base.html', {'error': 'Invalid Credentials! Please enter correct username and password.'})
@@ -90,12 +96,16 @@ def logout(request):
 
 @login_required(login_url = '/accounts/login')
 def dash(request):
-
     item = Quiz.objects.all().order_by('name')
+    paginator = Paginator(item, 5)  # Show 1o quizzes per page
+    page = request.GET.get('page', 1)
+    try:
+        item = paginator.get_page(page)
+    except PageNotAnInteger:
+        item = paginator.get_page(1)
+    except EmptyPage:
+        item = paginator.get_page(paginator.num_pages)
 
-    querys = []
-    for thing in item:
-        querys.append(thing)
-    return render(request, 'dashboard.html', {'quiz_object': querys})
+    return render(request, 'dashboard.html', {'quiz_object': item})
     
     

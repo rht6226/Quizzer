@@ -97,6 +97,26 @@
 </table>
 
         </div>
+<div class="row justify-content-center">
+    <div class="pagination justify-content-center">
+            <li class="page-item">
+                {% if quiz_object.has_previous %}
+                    <a href="?page=1"  class="btn btn-md btn-info">&laquo; first</a>
+                    <a href="?page={{ quiz_object.previous_page_number }}" class="btn btn-md btn-info">previous</a>
+                {% endif %}
+            </li>
+                <li class="page-item"style="margin:5px">
+                   <button class="btn" style="color:black;">Page {{ quiz_object.number }} of {{ quiz_object.paginator.num_pages }}</button>
+                </li>
+              <li class="page-item">
+                {% if quiz_object.has_next %}
+                    <a href="?page={{ quiz_object.next_page_number }}" class="btn btn-md btn-info ">next</a>
+                    <a href="?page={{ quiz_object.paginator.num_pages }}" class=" btn btn-md btn-info " >last &raquo;</a>
+                {% endif %}
+            </li class="page-item">
+        </div>
+
+</div>
     </div>
     <br>
     <br>
@@ -134,3 +154,17 @@
 
 
 {% endblock %}
+{% block js_extra %}
+
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function(){-->
+
+        <!--var infiniteScroll = new Waypoint.Infinite({-->
+          <!--element: $('.issues-container')[0],-->
+          <!--items: '.issue-list-item',-->
+          <!--loadingClass: 'more-issues-loading',-->
+          <!--more: '.more-issues-link'-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+{% endblock js_extra %}
