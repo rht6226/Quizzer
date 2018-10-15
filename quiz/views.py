@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404
+from django.shortcuts import render,redirect,get_object_or_404,get_list_or_404,render_to_response
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,19 @@ from .models import Quiz, Question, Answers,Score
 import os, csv
 from random import shuffle
 from django.core.mail import send_mail
+
+def search(request):
+    print('inside search')
+    try:
+        q = request.GET['search']
+        print(q)
+        quiz= Quiz.objects.filter(name__icontains=q)
+        #icontains is for case sensitive search
+        return render(request,'dashboard.html', {'quiz_object':quiz})
+    except:
+        messages.error(request, 'Quiz does not exists!')
+        return render(request,'dashboard.html')
+
 
 def mail(address, qid, pwd):
     html_content = '<br><p><b>Quiz Id : {{qid}}</b></p><br><p><b>Quiz Password : {{pwd}}</b></p><br><p>Kindly Share these details to the Quiz Aspirants.</p>'

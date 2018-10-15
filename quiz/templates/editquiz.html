@@ -4,7 +4,7 @@
     {% load staticfiles %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Quizzer - A quizing Platform">
+    <meta name="description" content="QuizOholic - A quizing Platform">
     <meta name="author" content="Binary Compatible">
     <link rel="icon" type="image/x-icon" href="{%static 'title.ico'%}">
      <title>
@@ -16,10 +16,10 @@
   <body>
      <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
+        <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
               <img src="{% static 'letter-q.png' %}" class="main-icon">
-                Quizzer
+                 <span class="head">QuizOholic</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -29,13 +29,17 @@
 
                 {% if user.is_authenticated %}
                 <!-- Executed when user is logged in. On click The Js code submits the form -->
-                <a href="{% url 'dashboard' %}"><img class = 'nav-img' src="{{user.profile.image_url}}" width=40 height=40></a>
+                <a href="{% url 'profile' %}"><img class = 'nav-img' src='{{user.profile.image_url}}' width=40 height=40></a>
                 <li class="nav-item dropdown">
                 <a class="nav-link nav-item dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     {{user.first_name}} {{user.last_name}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item nav-link nav-item" href="{% url 'profile' %}">Profile</a>
+
+                    <a class="dropdown-item nav-link nav-item" href="{% url 'dashboard' %}">Dashboard</a>
+                     <a class="dropdown-item nav-link nav-item" href="{% url 'admin-panel' %}">Admin Panel</a>
+
                     <a class="dropdown-item nav-link nav-item" href="{% url 'edit_profile' %}">Edit Profile</a>
                     <a class="dropdown-item nav-link nav-item" href="javascript:{document.getElementById('logout').submit()}">Log Out</a>
                 </div>
@@ -46,14 +50,47 @@
                 </li>
                 {% else %}
                 <!--If user is not logged in -->
-                <a class="nav-item nav-link" href="{% url 'login' %}">Log In</a>
+                <a class="nav-item nav-link" data-toggle="modal" href="" data-target="#myModal">Log In</a>
                 <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                  <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <form class="form-signin" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="text-center">
+            <img src="{% static 'letter-q.png' %}" width="60" class="d-inline-block align-top">
+            <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+        </div>
+            <label for="username">Username :</label>
+            <input type="text" id="username" class="form-control -p3" placeholder="Enter Alias" required autofocus name="username"><br>
+            <label for="inputPassword">Password :</label>
+            <input type="password" id="inputPassword" class="form-control -p3" placeholder="Password" required name="password"><br>
+            <a  class='fplink' href="{% url 'password_reset_recover' %}">Forgot Password?</a>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
                 {% endif %}
               </div>
             </div>
-        </div>
+
           </nav>
+    </div>
     </header>
+
      {% if user.is_authenticated %}
     <div class="container p-2">
         <h1 class='col-6'>{{quiz_object.name}}</h1>
@@ -75,7 +112,7 @@
                 <input class="form-control" type="url" value="{{obj.image}}" name='img_{{obj.id}}' placeholder="Enter the Url If you want an image for this question"> </p>
             <p>
                 <label for="code">Code If any :</label>
-                   <input type="text" class="form-control -p3" placeholder="Enter Your code here if the need arises!" value="{{obj.code}}" name="code_{{obj.id}}">
+                   <textarea class="form-control -p3" placeholder="Enter Your code here if the need arises!" value="{{obj.code}}" name="code_{{obj.id}}"> </textarea>
                 <br>
             </p>
             </li>
@@ -166,7 +203,7 @@
             console.log("form submitted!")
             var quid = $('input[name="question_{{obj.id}}"]').val();
             var res = $('input[name="img_{{obj.id}}"]').val();
-            var cde = $('input[name="code_{{obj.id}}"]').val();
+            var cde = $('textarea[name="code_{{obj.id}}"]').val();
             submit(quid, res, cde);
         });
         {% endfor %}

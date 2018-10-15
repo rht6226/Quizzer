@@ -72,12 +72,12 @@ def login(request):
         user = auth.authenticate(username = request.POST['username'], password= request.POST['password'])
         if user is not None:
             auth.login(request, user)
-            item=Quiz.objects.all()
-
-            querys = []
-            for thing in item:
-                querys.append(thing)
-            return render(request,'dashboard.html',{'quiz_object':querys})
+            item=Quiz.objects.all().order_by('name')
+            #
+            # querys = []
+            # for thing in item:
+            #     querys.append(thing)
+            return render(request,'dashboard.html',{'quiz_object':item})
         else:
             return render(request, 'base.html', {'error': 'Invalid Credentials! Please enter correct username and password.'})
     else:
@@ -91,7 +91,7 @@ def logout(request):
 @login_required(login_url = '/accounts/login')
 def dash(request):
 
-    item = Quiz.objects.all()
+    item = Quiz.objects.all().order_by('name')
 
     querys = []
     for thing in item:

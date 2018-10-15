@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 class Quiz(models.Model):
     name = models.CharField(max_length = 50)
@@ -10,10 +12,10 @@ class Quiz(models.Model):
     quizmaster =   models.ForeignKey(User, on_delete= models.CASCADE)
     instructions = models.TextField(default=' ')
     Quiz_id = models.CharField(max_length=50,default='')
-    positive = models.IntegerField(default=3)
-    negative = models.IntegerField(default=1)
+    positive = models.PositiveIntegerField(default=3)
+    negative = models.PositiveIntegerField(default=0)
     duration = models.DurationField(default= timedelta())
-
+    # tags=models.TextField(max_length=2000)
 
     def __str__(self):
             return self.name

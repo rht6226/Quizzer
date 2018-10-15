@@ -67,7 +67,7 @@
                 {%if obj.code %}
                 <li class="list-group-item">
                     <code class="col-4">
-                        {{obj.code}}
+                        {{obj.code|linebreaks}}
                     </code>
                 </li>
                 {% endif %}
@@ -162,7 +162,7 @@
     }
 
 </script>
-
+<!--full screen-->
 <script>
 <!--window.onbeforeunload = function () {-->
 
@@ -218,6 +218,9 @@ if (element.mozRequestFullScreen) {
    }
 
 </script>
+<!--Full screen ends-->
+
+
     <!--Question fetch-->
 
                         <script>

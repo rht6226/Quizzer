@@ -1,17 +1,4 @@
-.txt{
-  -webkit-transition: .4s ease-in-out opacity;
-  -moz-transition: .4s ease-in-out opacity;
-  -o-transition: .4s ease-in-out opacity;
-  transition: .4s ease-in-out opacity;
-}
-.txt :hover{
-  opacity: 0.1;
-}
-h1 {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-}
+
 .btn-huge{
     padding-top:40px;
     padding-bottom:60px;

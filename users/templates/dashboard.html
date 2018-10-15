@@ -37,9 +37,40 @@
         <br>
         <br>
         <div class="row">
+
             <h1 style="font-family: 'Faster One', cursive; border-left: 6px solid red;
     background-color: #ecf7f9;">Available Quizzes</h1>
 
+        </div>
+
+           <div class="row">
+            <div class="col-8">
+                              <div class="dropdown">
+                  <button class="btn btn-primary-outline dropdown-toggle" style=" background-color: transparent;
+  border-color: #ccc;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-4 input-group" style="float:right">
+
+              <form action="{% url 'search' %}" method="get">
+               <div class="form-inline">
+              <input type="text" placeholder="Search.." name="search" class="form-control">
+                <button class="btn btn-outline-secondary" style="" ><i class="fa fa-search"></i></input>
+               </form>
+              </div>
+            </div>
+
+           </div>
+<br>
+
+        <div class="row">
             <table class="table table-striped" style="font-family:'Cute Font', cursive; font-size:1.5em;">
   <thead class="thead-dark">
     <tr>
