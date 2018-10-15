@@ -38,6 +38,10 @@
 
             <li class="text-muted" style="margin-bottom:10px;">You are advised to not indulge in wrong ethics.</li>
             <li class="text-muted" style="margin-bottom:10px;">In case of any discrepancy contact Quizmaster.</li>
+            {% for instruct in instruct_list %}
+            <li class="text-muted" style="margin-bottom:10px;">{{instruct}}</li>
+
+            {% endfor %}
             <li class="text-muted" style="margin-bottom:10px;">Happy Quizzing!!.</li>
 
         </ol>

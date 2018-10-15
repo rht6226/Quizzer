@@ -13,7 +13,14 @@ def search(request):
     try:
         q = request.GET['search']
         print(q)
-        quiz= Quiz.objects.filter(name__icontains=q)
+        quiz_byname= Quiz.objects.filter(name__icontains=q)
+        quiz_bytag =Quiz.objects.filter(tags__icontains=q)
+        quiz=[]
+        for list in quiz_byname:
+            quiz.append(list)
+        for list in quiz_bytag:
+            quiz.append(list)
+        # print(quiz_bytag)
         return render(request,'dashboard.html', {'quiz_object':quiz})
     except:
         messages.error(request, 'Quiz does not exists!')
@@ -49,8 +56,10 @@ def start_quiz(request):
         try:
            item=Quiz.objects.get(Quiz_id=request.POST['quizid'])
            user = request.user
+           instruct = item.instructions
+           instruct_list = instruct.split(";")
 
-           return render(request, 'instructions.html', {'quiz_object': item, 'user': user})
+           return render(request, 'instructions.html', {'quiz_object': item, 'user': user ,'instruct_list' :instruct_list })
            # item=Quiz(Quiz_id=request.POST['quizid'],Test_password=request.POST['tPass'])
 
            # if item.Test_Password==request.POST['password']:
@@ -114,6 +123,7 @@ def create(request):
                 item.negative = request.POST['negative']
                 item.duration = request.POST['duration']
                 item.quizmaster = request.user
+                item.tags=request.POST['tags']
                 item.save()
                 url = item.csv_file.url
                 l = url.split('/')

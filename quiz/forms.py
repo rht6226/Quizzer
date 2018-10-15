@@ -4,7 +4,7 @@ from .models import Quiz
 class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ('Quiz_id', 'name', 'Test_Password', 'about', 'instructions', 'csv_file', 'positive', 'negative', 'duration')
+        fields = ('Quiz_id', 'name', 'Test_Password', 'about', 'instructions', 'csv_file', 'positive', 'negative', 'duration','tags')
 
         widgets = {
             'about': forms.Textarea(attrs={'class':'form-control col-8'}),
@@ -15,5 +15,6 @@ class QuizForm(forms.ModelForm):
             'negative' : forms.NumberInput(attrs = {'class':'form-control col-3'}),
             'duration' : forms.TimeInput(attrs = {'class':'form-control col-3'}),
             'Quiz_id': forms.TextInput(attrs={'class': 'form-control col-6'}),
-            'csv_file': forms.FileInput(attrs={'class': 'form-control col-5 btn btn-primary btn-sm'})
+            'csv_file': forms.FileInput(attrs={'class': 'form-control col-5 btn btn-primary btn-sm'}),
+            'tags':forms.TextInput(attrs={'class': 'form-control col-6','placeholder':'Separate tags with comma(,)'}),
             }

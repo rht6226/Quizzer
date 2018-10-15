@@ -15,7 +15,7 @@ class Quiz(models.Model):
     positive = models.PositiveIntegerField(default=3)
     negative = models.PositiveIntegerField(default=0)
     duration = models.DurationField(default= timedelta())
-    # tags=models.TextField(max_length=2000)
+    tags=models.TextField(max_length=2000)
 
     def __str__(self):
             return self.name
