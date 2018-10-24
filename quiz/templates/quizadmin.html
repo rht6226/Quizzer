@@ -77,7 +77,11 @@ Admin | {{user.username}}
                     {% for score in item|slice:":3" %}
                     {% if score.quiz == quiz_object %}
                         <tr>
-                            <th scope="row">{{score.applicant.first_name}} {{score.applicant.last_name}}</th>
+                            <th scope="row">
+                            <a href = "{% url 'pub_profile' username=score.applicant.username %}">
+                                {{score.applicant.first_name}} {{score.applicant.last_name}}</th>
+                             </a>
+                            </th>
                             <td>{{score.total}}</td>
                             <td>{{score.obtained}}</td>
                             <td>{{score.percentage}}</td>
