@@ -9,7 +9,7 @@ urlpatterns = [
     path('profile', views.profile, name ='profile'),
     path('dashboard', views.dash, name='dashboard'),
     path('edit_profile', views.update_profile, name='edit_profile'),    
-    path('profile/<slug:username>', views.public_profile, name='profile'),
+    path('profile/<slug:username>', views.public_profile, name='pub_profile'),
 
 
 ]
