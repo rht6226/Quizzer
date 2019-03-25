@@ -32,6 +32,7 @@ The room for development is enourmous. We can first start by adding a code edito
 
 The main reason behind choosing this project was that we can keep on working on it and improving it.
 
+
 ## Instructions to run locally
 1. Install Python and some dev tools for Python
  - $ sudo apt-get install python-pip python-dev build-essential
@@ -55,3 +56,5 @@ The main reason behind choosing this project was that we can keep on working on 
  - $ Python manage.py runserver
  - $ visit 127.0.0.1:8000
 7. Done :-)
+
+BEST OF LUCk
